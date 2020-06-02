@@ -91,4 +91,4 @@ En son yol ise daha çok iş sebepli kullandığım iletişim formu. Bu formu do
 2. Kısa zaman içerisinde bitirilmesi gereken yazı isteklerini **çoğu zaman** yanıtsız bırakıyorum. Haftaya çıkacak bir dergiye/gazeteye yazı istemek aslında “boş yer kaldı, gel doldur” demekten farklı değil. Mücbir durumlarda tabi ki (yeni ortaya çıkan bir hastalık, durum ve benzeri konularda görüş almak için istenen yazıları ve röportaj talepleri) zaman kısıtlamasına önem vermiyorum.
 3. Ürün tanıtımı için randevu taleplerini **çoğu zaman** yanıtsız bırakıyorum. Çünkü bu minvaldeki çoğu talep kanıta dayalı olmuyor ya da alışılmış ürünlerin tanıtımını içeriyor. Eğer yenilikçi bir ürününüz varsa ve benimle paylaşmak istiyorsanız lütfen bilimsel araştırmaları mailinize ekleyiniz.
 
-Evet, eğer yukarıdaki keskin sınırların dışında kalan bir hususta bana yazmak isterseniz lütfen **can (at) drciftci (nokta) com** adresini kullanabilirsiniz.
+Evet, eğer yukarıdaki keskin sınırların dışında kalan bir hususta bana yazmak isterseniz lütfen **can(at)drciftci(nokta)com** adresini kullanabilirsiniz.
