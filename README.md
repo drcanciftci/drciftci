@@ -1,4 +1,15 @@
-# Merhaba, ben Dr. Can. 
+Merhaba, ben Dr. Can. 
+
+- [Merhaba, ben Dr. Can.](#merhaba--ben-dr-can)
+    + [Ne yaptım?](#ne-yaptım-)
+    + [Ne yapıyorum?](#ne-yapıyorum-)
+    + [Eğitim ne durumda?](#eğitim-ne-durumda-)
+  * [Etkinlik Daveti Sayfası](#etkinlik-daveti-sayfası-)
+    + [Ayrıca bilmeniz gerekenler:](#ayrıca-bilmeniz-gerekenler-)
+  * [İletişim](#i-leti-im)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 Kötü beslenme kültürü, ilaçlar, hareketsizlik ve sınavlar nedeniyle sağlıksız bir çocukluk geçirdim. Üniversite sırasına oturduğum o gün bir sorun olduğunu gördüğümü ve umutsuzluğa kapıldığımı hatırlıyorum. Sonraki hafta kayıt olduğum spor kulübünde 140 kilo olarak kayıtlara geçtiğimi görünce yüzümün aldığı hali tahmin edeceğinizi düşünüyorum.
 
@@ -64,7 +75,7 @@ Bu duruma eskiden çok takılmama rağmen artık böyle bir durum söz konusu de
 
 Eğer konuşma davetinde bulunmak istiyorsanız [iletişim sayfası](https://drciftci.com/iletisim/) aracılığıyla bana ulaşabilirsiniz.
 
-## İletişim sayfası
+## İletişim
 
 Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sık kullandığım sosyal medya kanalları [Youtube](https://www.youtube.com/channel/UCaGWT10TnS3vN0lt9Nrq_ww) , [İnstagram](https://www.instagram.com/drcanciftci/?hl=tr) ve [Twitter](https://twitter.com/fitekran). Bu mecralarda kolay tüketilebilir, basit anlaşılır içerikler oluşturuyorum.
 
@@ -72,23 +83,7 @@ Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sı
 
 Biliyorum mail adresinizin "spam mail" çöplüğüne dönmesinden korkuyorsunuz ama bana güvenebilirsiniz. Mail adresinizi **asla** satmayacak ya da paylaşmayacağım.
 
-Mail listesine abone olmak için yapmanız gereken tek şey
-
-<form
-  action="https://buttondown.email/api/emails/embed-subscribe/drcan"
-  method="post"
-  target="popupwindow"
-  onsubmit="window.open('https://buttondown.email/drcan', 'popupwindow')"
-  class="embeddable-buttondown-form"
->
-  <label for="bd-email">Enter your email</label>
-  <input type="email" name="email" id="bd-email">
-  <input type="hidden" value="1" name="embed"></input>
-  <input type="submit" value="Subscribe"></input>
-  <p>
-    <a href="https://buttondown.email" target="_blank">Powered by Buttondown.</a>
-  </p>
-</form>
+Mail listesine abone olmak için yapmanız gereken tek şey [bu linke] (https://bit.ly/2MrInHS) tıklayarak açılan sayfayı takip etmek.
 
 En son yol ise daha çok iş sebepli kullandığım iletişim formu. Bu formu doğru kullanabilmeniz için birkaç hatırlatma ile başlamak istiyorum. Zira aşağıdaki konularla ilgili iletişim taleplerini çok fazla mail aldığım için nazikçe reddetmek zorundayım.
 
