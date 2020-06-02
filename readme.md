@@ -1,10 +1,11 @@
-- [Merhaba, ben Dr. Can.](#merhaba--ben-dr-can)
+- [Hakkımda](#hakkımda)
     + [Ne yaptım?](#ne-yaptım)
     + [Ne yapıyorum?](#ne-yapıyorum?)
     + [Eğitim ne durumda?](#eğitim-ne-durumda)
-- [Etkinlik Daveti Sayfası](#etkinlik-daveti-sayfası)
+- [Etkinlik Daveti](#etkinlik-daveti)
     + [Ayrıca bilmeniz gerekenler:](#ayrıca-bilmeniz-gerekenler)
 - [İletişim](#iletişim)
+## Hakkımda
 
 Kötü beslenme kültürü, ilaçlar, hareketsizlik ve sınavlar nedeniyle sağlıksız bir çocukluk geçirdim. Üniversite sırasına oturduğum o gün bir sorun olduğunu gördüğümü ve umutsuzluğa kapıldığımı hatırlıyorum. Sonraki hafta kayıt olduğum spor kulübünde 140 kilo olarak kayıtlara geçtiğimi görünce yüzümün aldığı hali tahmin edeceğinizi düşünüyorum.
 
@@ -40,7 +41,7 @@ Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi be
 - **World Obesity Fedaration:** Obesity Professional Education
 - **Cerrahpaşa Tıp Fakültesi Fizyoloji:** Doktora Programı (Duraklatıldı)
 
-## Etkinlik Daveti Sayfası
+## Etkinlik Daveti
 
 Şu anda yapmaktan en çok keyif aldığım şey araştırma yaptığım ve uzmanlaştığım konuları anlatmak/öğretmek. Dolayısıyla programım ve etkinlik uygunsa bütün konuşma taleplerine karşılık vermeye çalışıyorum.
 
@@ -71,11 +72,11 @@ Son olarak **çoğu zaman** anlaşılmasa da **minimal bir konuşma bozukluğumu
 
 Bu duruma eskiden çok takılmama rağmen artık böyle bir durum söz konusu değil. -Sanırım- yaş ile beraber anlatma hızımın değil, anlattıklarımın değerli olduğunu öğrendim.
 
-Eğer konuşma davetinde bulunmak istiyorsanız [iletişim sayfası](#iletişim) aracılığıyla bana ulaşabilirsiniz.
+Eğer konuşma davetinde bulunmak istiyorsanız hemen aşağıda bulunan [iletişim bölümü](#iletişim) aracılığıyla bana ulaşabilirsiniz.
 
 ## İletişim
 
-Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sık kullandığım sosyal medya kanalları [Youtube](https://www.youtube.com/channel/UCaGWT10TnS3vN0lt9Nrq_ww) , [İnstagram](https://www.instagram.com/drcanciftci/?hl=tr) ve [Twitter](https://twitter.com/fitekran). Bu mecralarda kolay tüketilebilir, basit anlaşılır içerikler oluşturuyorum.
+Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sık kullandığım sosyal medya kanalları [Youtube](https://www.youtube.com/channel/UCaGWT10TnS3vN0lt9Nrq_ww), [İnstagram](https://www.instagram.com/drcanciftci/?hl=tr) ve [Twitter](https://twitter.com/fitekran). Bu mecralarda kolay tüketilebilir, basit anlaşılır içerikler oluşturuyorum.
 
 İkinci mecra ise mail aboneliği. Bu yöntemi kesinlikle kullanmanızı öneriyorum çünkü birçok alanda oluşturduğum içerikleri ve ileride mail listeme özel oluşturacağım içerikleri takip etmek için en kolay yol bu olacak. 
 
