@@ -1,88 +1,68 @@
-# Coronavirus Disease 2019 (COVID-19) Clinical Data Repository
+# Merhaba, ben Dr. Can. 
 
-This is an effort to compile a repository of the clinical characteristics of patients who have taken a COVID-19 test. By sharing our schema and data, we hope that we can 1) accelerate information sharing among frontline healthcare providers and 2) facilitate studies on COVID-19 signs, symptoms, stages, and care plans.
+Kötü beslenme kültürü, ilaçlar, hareketsizlik ve sınavlar nedeniyle sağlıksız bir çocukluk geçirdim. Üniversite sırasına oturduğum o gün bir sorun olduğunu gördüğümü ve umutsuzluğa kapıldığımı hatırlıyorum. Sonraki hafta kayıt olduğum spor kulübünde 140 kilo olarak kayıtlara geçtiğimi görünce yüzümün aldığı hali tahmin edeceğinizi düşünüyorum.
 
-## The Repository
+Günler, ayları, aylar ise yılları kovaladı. Kendi serüvenime yine sağlıksız beslenerek ama zayıflayarak devam ettim. Bu süreçte birçok ünlü kurum-kişiden yardım aldım ama gördüğüm şey obezite konusunda hep bilindik tedaviler ve aynı reçetelerin kullanıldığıydı. Sürekli “her hastaya aynı ilaç verilmiyorsa neden her obezin tedavisi diyet oluyor?” diye sormaya başladım ve gördüm ki obezite tıp içerisinde kendi başına branş oluşturacak kadar geniş bir hastalık grubunu ifade ediyor.
 
-The repository is maintained as [CSVs](https://github.com/mdcollab/covidclinicaldata/tree/master/data/) and in <a href="https://docs.google.com/spreadsheets/d/11IuOqJ_L0wYcbDqovmDaASR2aae79I5a9wpGVOuQ9bU/edit?usp=sharing" target="_blank">Google Sheets</a> and is compliant with <a href="https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html#standard" target="_blank">HIPAA Privacy Rule's De-Identification Standard</a>. Details about each field are available in the associated <a href="https://docs.google.com/spreadsheets/d/1p9rtv2LjVCPb54MdGe8ZqJ1zF3McIFnzq-ZhhjWgguI/edit?usp=sharing" target="_blank">data dictionary</a>. 
+O dönemden sonra hayatımın amacını bulmuştum. Obeziteye doğru yaklaşacak, kökeni arayacak ve insanları hasta eden gerçek sebebi tedavi edecektim. İşte o zorlu amaç beni buraya getirdi ve şimdi beraberiz.
 
-### Refresh Cadence and Organization 
+### Ne yaptım?
 
-  * Each row contains the clinical characteristics of a patient who has taken a COVID-19 test.  
-  * Each batch is published as a separate CSV file (and Google Sheets tab). 
-  * A new batch is compiled and published weekly, including data from Carbon Health and Braid Health.
-  * Each filename is prefixed with the date (mm-dd) the query was run, which matches with the `date_published` field. 
-  * Each batch contains a week's worth of test results, with the most recent date being `date_published - 1`. The first batch—prefixed with 04-07—contains a month's worth of data starting from 03-07.
+Geçtiğimiz yıllar içerisinde [fitekran.com’u](http://fitekran.com/) kurdum ve editörlüğünü yaptım. Fitekran şu an yıllık 10 milyondan fazla sayfa görüntülenmesiyle hatırı sayılır bir sağlık internet sitesi.
 
+Ardından internet sitesindeki bilgiler dağınık olduğu için beslenmeye genel bakışımı ve klinik tecrübelerimi paylaştığım [ketofasting kitabını](https://www.amazon.com.tr/Ketofasting-Ketojenik-Beslenme-Aral%C4%B1kl%C4%B1-Oru%C3%A7/dp/6050962960) yayınladım. Kitabım birçok kişinin sağlığına ideal kilosuna ve sağlığına kavuşmasına yardım etti/ediyor.
 
-## <a name="contribs"></a> Contributors and Supporters
+Ayrıca klinikte supplementasyonun çok değerli olduğunu düşündüğüm için birçok firmaya doğru ürün üretebilmeleri için formülizasyon konusunda danışmanlık yaptım.
 
-### Data Contributors
+### Ne yapıyorum?
 
-#### Carbon Health — Clinical characteristics and laboratory findings
+Şu anda zamanımın büyük kısmını yeni kitap projem için okuma yapmaya ayırıyorum. Ayrıca birkaç bilimsel dergi için editörlük/danışmanlık yapıyorum.
 
-- Website: <a href="https://carbonhealth.com/coronavirus" target="_blank">Carbon Health</a>
-- Twitter: <a href="https://twitter.com/CarbonHealth" target="_blank">@CarbonHealth</a>
-- Email: <covidclinicaldata@carbonhealth.com>
-- Notes: 
-    * Carbon Health began COVID-19 testing with the SARS-CoV-2 RNA RT-PCR test on 03-04-20. 
-    * The data includes **clinical characteristics** in addition to **radiological** and **laboratory** findings. It does not include **treatment plans**, **complications**, and **clinical outcomes**, which is collected at inpatient facilities.
-    * The data includes both positive- and negative-tested patient characteristics. These include the characteristics of symptomatic patients, those in professions with a high risk of exposure, and/or those who may have been exposed through contact with a known infected person. 
-    * Clinician-assessed symptoms are sparse for data published on 04-07 due to some criteria having been added later. 
-    * A patient's reported age differs from their actual age by a reasonable randomized amount to protect their privacy. 
-    
-| ![CH Logo](contributors/logos/carbon_health.png) | <img src="contributors/samples/carbon_health_dictionary.png" width="60%"> |
-|:--:| :--: |
-| Carbon Health Logo | <a href="https://docs.google.com/spreadsheets/d/1p9rtv2LjVCPb54MdGe8ZqJ1zF3McIFnzq-ZhhjWgguI/edit?usp=sharing" target="_blank">Data Dictionary</a> |
+Son zamanlarda en çok keyif aldığım şey ise kurumlar için özel eğitim/workshop düzenlemek ve bildiklerimi anlatmak. İnanılmaz keyifli bir aktivite olan "öğretmek ve paylaşmak" konusunda bu kadar geç adım attığım için ekstra pişmanım tabi. (Eğer etkinliğinizde yer almamı istiyorsanız [konuşmacı daveti](https://drciftci.com/konusma-daveti/) sayfasına giderek ayrıntılı bilgi alabilirsiniz.)
 
-#### Braid Health — Chest x-rays, findings, and clinician impressions
+Ayrıca hala birçok kuruma yeni besin destekleri için formülizasyon/literatür konusunda proje bazlı danışmanlık yapıyorum.
 
-- Website: <a href="https://braid.health/www" target="_blank">Braid Health</a>
-- Twitter: <a href="https://twitter.com/BraidHealth" target="_blank">@BraidHealth</a>
-- Email: <vivian@braid.health> and <k@braid.health>
-- Notes:
-    * The data is merged with Carbon Health clinical fields and includes findings, clinician impressions, and links to chest x-rays. 
-    * The links direct to the Braid Health website. The website UI allows for closer inspection by researchers and radiologists. 
-    * The images can be downloaded for image processing and classification studies.
-    * A patient’s reported age differs from their actual age by a reasonable randomized amount to protect their privacy.
+### Eğitim ne durumda?
 
-| <img src="contributors/logos/braid_health.png" width="60%"> |  <img src="contributors/samples/braid_health_c_xray.png" width="60%"> |
-|:--:| :--:| 
-| Braid Health Logo | <a href="https://braid.health/viewer/study/6905c8c988d201379dd932fa5ba650125d89bc5bddfa6a4df9f4338cbd2326f2?key=BIo8HvL8W_dy__4IdBFd1pxP3xoibTLfRwG4ErLo9Okog3RzXmcB0VJL-7onLz9PlL4OpSzut_hzZZGPnC6LX0&lab=sars"  target="_blank">Sample Chest X-ray</a> |
+Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi belirterek güncel eğitim durumum aşağıdaki şekilde.
 
-### Supporters
+- **Cerrahpaşa Tıp Fakültesi:** Tıp doktorluğu
+- **Functional Medicine University:** Functional Medicine Practitioner
+- **American Academy of Anti Aging Medicine:** Fellowship Anti Aging and Metabolic Medicine Practitioner (devam ediyor)
+- **World Society of Anti Aging Medicine:** Anti Aging Medicine Practitioner
+- **Medipol Üniversitesi:** Fitoterapi Uygulayıcı Eğitimi
+- **World Obesity Fedaration:** Obesity Professional Education
+- **Cerrahpaşa Tıp Fakültesi Fizyoloji:** Doktora Programı (Duraklatıldı)
 
-Special thanks to <a href="https://braid.health/www" target="_blank">Kevin Quennesson</a>, <a href="https://profiles.stanford.edu/nigam-shah" target="_blank">Nigam Shah</a>, [Andrew Therriault](https://www.andrewtherriault.com/), and [Andrew Pikul](http://ajpikul.com) for their support of this effort and for their feedback.
+## Etkinlik Daveti Sayfası
 
-## Call for Data 
+Şu anda yapmaktan en çok keyif aldığım şey araştırma yaptığım ve uzmanlaştığım konuları anlatmak/öğretmek. Dolayısıyla programım ve etkinlik uygunsa bütün konuşma taleplerine karşılık vermeye çalışıyorum.
 
-To ensure this data is representative of cases with varying severity levels and symptoms, we are requesting data from **outpatient test centers** and **inpatient healthcare facilities** which are treating COVID-19. 
-Please use the templates below and email the data to <covidclinicaldata@carbonhealth.com>. 
+Eğer etkinliğiniz için uygun olup olmadığımı düşünüyorsanız daha önceki etkinliklerde anlattığım konulardan birkaçını size fikir vermesi için aşağıda listeliyorum.
 
-Details about the fields are available in the <a href="https://docs.google.com/spreadsheets/d/1p9rtv2LjVCPb54MdGe8ZqJ1zF3McIFnzq-ZhhjWgguI/edit?usp=sharing" target="_blank">data dictionary</a>.
+1. Obezite ve beslenme temelleri
+2. Tuz ve sağlıklı yaşam ilişkisi
+3. Nasıl ve neden yaşlanırız? Yaşlanmayı engelleme ve kanıta dayalı yöntemler
+4. Düşük karbonhidratlı beslenme sistemleri ve sağlıklı yaşam
+5. Aralıklı oruç ve uygulama yöntemleri
+6. Akılcı supplement kullanımı
+7. Kronik inflamasyon ve popüler hastalıklar
 
-### Outpatient Test Centers
+Ama çoğu zaman "etkinlik/eğitim programını" ev sahibi ile beraber netleştiriyoruz.
 
-Outpatient test centers and clinics can contribute their data using the <a href="https://docs.google.com/spreadsheets/d/18dGt8lZQsaAL0X4OPDICWVU2LtTBhRQufR2eBcLVgPA/edit?usp=sharing" target="_blank">outpatient template</a>.
+### Ayrıca bilmeniz gerekenler:
 
-### Inpatient Healthcare Facilities
+1. Sunumlarımı elektronik olarak paylaşmıyorum çünkü tıbbi içeriği olan bir sunum hazırlamak bazen 15-20 gün kadar sürüyor. Bu veriyi daha sonra kullanmak için sadece kendime saklıyorum.
+2. Sunumlarımda kendi bilgisayarımı ve araçlarımı kullanıyorum. (Projektör ile bağlantı kurmak için gerekli ekipmanları yanımda getiriyorum.)
+3. Etkinliğin ev sahibinden sadece yansıtıcı, mikrofon ve pointer (işaretçi) gibi diğer zaruri ekipmanları talep ediyorum.
+4. Aksilikleri engellemek için sunum yapılacak ortamda bir gün öncesinde prova yapmak istiyorum.
+5. Etkinlik/eğitim sırasında kayıt alınacak ya da yayın yapılacak ise bunu mutlaka sözleşmemize ekletmek istiyorum.
 
-Inpatient healthcare providers can contribute additional columns for **treatment plans**, **complications**, and **clinical outcomes** using the <a href="https://docs.google.com/spreadsheets/d/18dGt8lZQsaAL0X4OPDICWVU2LtTBhRQufR2eBcLVgPA/edit?usp=sharing" target="_blank">inpatient template</a>.
+Son olarak **çoğu zaman** anlaşılmasa da **minimal bir konuşma bozukluğumun** olduğunu belirtmem gerekiyor.
 
-## Call for Papers 
+Bu duruma eskiden çok takılmama rağmen artık böyle bir durum söz konusu değil. -Sanırım- yaş ile beraber anlatma hızımın değil, anlattıklarımın değerli olduğunu öğrendim.
 
-Please share any studies on this data via email or a <a href="https://github.com/mdcollab/covidclinicaldata" target="_blank">pull request</a>. 
-You can use the format below to cite the data repository in your studies.
-
-```
-@dataset{2020covidclinicaldata,
-  author =       {Carbon Health and Braid Health},
-  title =        {Coronavirus Disease 2019 (COVID-19) Clinical Data Repository},
-  howpublished = {Accessed from \url{https://covidclinicaldata.org/.}},
-  year =         2020,
-  version =      {3.0}
-}
-```
+Eğer konuşma davetinde bulunmak istiyorsanız [iletişim sayfası](https://drciftci.com/iletisim/) aracılığıyla bana ulaşabilirsiniz.
 
 ## Data Sharing Agreement
 
