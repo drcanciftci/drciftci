@@ -64,10 +64,38 @@ Bu duruma eskiden çok takılmama rağmen artık böyle bir durum söz konusu de
 
 Eğer konuşma davetinde bulunmak istiyorsanız [iletişim sayfası](https://drciftci.com/iletisim/) aracılığıyla bana ulaşabilirsiniz.
 
-## Data Sharing Agreement
+## İletişim sayfası
 
-This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sık kullandığım sosyal medya kanalları [Youtube](https://www.youtube.com/channel/UCaGWT10TnS3vN0lt9Nrq_ww) , [İnstagram](https://www.instagram.com/drcanciftci/?hl=tr) ve [Twitter](https://twitter.com/fitekran). Bu mecralarda kolay tüketilebilir, basit anlaşılır içerikler oluşturuyorum.
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+İkinci mecra ise mail aboneliği. Bu yöntemi kesinlikle kullanmanızı öneriyorum çünkü birçok alanda oluşturduğum içerikleri ve ileride mail listeme özel oluşturacağım içerikleri takip etmek için en kolay yol bu olacak. 
+
+Biliyorum mail adresinizin "spam mail" çöplüğüne dönmesinden korkuyorsunuz ama bana güvenebilirsiniz. Mail adresinizi **asla** satmayacak ya da paylaşmayacağım.
+
+Mail listesine abone olmak için yapmanız gereken tek şey
+
+<form
+  action="https://buttondown.email/api/emails/embed-subscribe/drcan"
+  method="post"
+  target="popupwindow"
+  onsubmit="window.open('https://buttondown.email/drcan', 'popupwindow')"
+  class="embeddable-buttondown-form"
+>
+  <label for="bd-email">Enter your email</label>
+  <input type="email" name="email" id="bd-email">
+  <input type="hidden" value="1" name="embed"></input>
+  <input type="submit" value="Subscribe"></input>
+  <p>
+    <a href="https://buttondown.email" target="_blank">Powered by Buttondown.</a>
+  </p>
+</form>
+
+En son yol ise daha çok iş sebepli kullandığım iletişim formu. Bu formu doğru kullanabilmeniz için birkaç hatırlatma ile başlamak istiyorum. Zira aşağıdaki konularla ilgili iletişim taleplerini çok fazla mail aldığım için nazikçe reddetmek zorundayım.
+
+1. Uzaktan tıbbi destek/öneri taleplerini hekimliğin doğası gereği **kesinlikle** yanıtsız bırakıyorum. Zira sizi görmeden/muayene etmeden tam anlayamayacağım ve tanı koyamayacağım için verdiğim her öneri faydadan çok zarar oluşturur.
+2. Kısa zaman içerisinde bitirilmesi gereken yazı isteklerini **çoğu zaman** yanıtsız bırakıyorum. Haftaya çıkacak bir dergiye/gazeteye yazı istemek aslında “boş yer kaldı, gel doldur” demekten farklı değil. Mücbir durumlarda tabi ki (yeni ortaya çıkan bir hastalık, durum ve benzeri konularda görüş almak için istenen yazıları ve röportaj talepleri) zaman kısıtlamasına önem vermiyorum.
+3. Ürün tanıtımı için randevu taleplerini **çoğu zaman** yanıtsız bırakıyorum. Çünkü bu minvaldeki çoğu talep kanıta dayalı olmuyor ya da alışılmış ürünlerin tanıtımını içeriyor. Eğer yenilikçi bir ürününüz varsa ve benimle paylaşmak istiyorsanız lütfen bilimsel araştırmaları mailinize ekleyiniz.
+
+Evet, eğer yukarıdaki keskin sınırların dışında kalan bir hususta bana yazmak isterseniz lütfen **can (at) drciftci (nokta) com** adresini kullanabilirsiniz.
 
 
