@@ -1,10 +1,10 @@
 - [Hakkımda](#hakkımda)
     + [Ne yaptım?](#ne-yaptım)
-    + [Ne yapıyorum?](#ne-yapıyorum?)
+    + [Ne yapıyorum?](#ne-yapıyorum)
     + [Eğitim ne durumda?](#eğitim-ne-durumda)
 - [Etkinlik Daveti](#etkinlik-daveti)
     + [Ayrıca bilmeniz gerekenler:](#ayrıca-bilmeniz-gerekenler)
-- [İletişim](#iletişim)
+- [İletişim](#i̇letişim)
 
 ## Hakkımda
 
