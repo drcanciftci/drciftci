@@ -28,6 +28,8 @@ Son zamanlarda en çok keyif aldığım şey ise kurumlar için özel eğitim/wo
 
 Ayrıca klinikte supplementasyonun çok değerli olduğunu düşündüğüm için birçok firmaya doğru ürün üretebilmeleri için formülizasyon/literatür konusunda danışmanlık yaptım/yapıyorum.
 
+Bu arada 2 yıl önce açtığım klinikte beslenme ve fonksiyonel tıp alanında gördüğüm 3000 üzerinde hasta ile geniş bir aile oluşturdum. (Hala çok sınırlı sürelerle hastalarımı görmeye devam ediyorum)
+
 ### Eğitim ne durumda?
 
 Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi belirterek güncel eğitim durumum aşağıdaki şekilde.
@@ -66,6 +68,8 @@ Tabi çoğu zaman "etkinlik/eğitim programını" ev sahibi ile beraber netleşt
 3. Etkinliğin ev sahibinden sadece yansıtıcı, mikrofon ve pointer (işaretçi) gibi diğer zaruri ekipmanları talep ediyorum.
 4. Aksilikleri engellemek için sunum yapılacak ortamda bir gün öncesinde prova yapmak istiyorum.
 5. Etkinlik/eğitim sırasında kayıt alınacak ya da yayın yapılacak ise bunu mutlaka sözleşmemize ekletmek istiyorum.
+
+**Covid-19 güncellemesi** olarak artık tüm eğitimleri online olarak yapmak için altyapıyı hazırlamış durumdayım. 
 
 Son olarak **çoğu zaman** anlaşılmasa da **minimal bir konuşma bozukluğumun** olduğunu belirtmem gerekiyor.
 
