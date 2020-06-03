@@ -20,15 +20,13 @@ Geçtiğimiz yıllar içerisinde [fitekran.com’u](http://fitekran.com/) kurd
 
 Ardından internet sitesindeki bilgiler dağınık olduğu için beslenmeye genel bakışımı ve klinik tecrübelerimi paylaştığım [ketofasting kitabını](https://www.amazon.com.tr/Ketofasting-Ketojenik-Beslenme-Aral%C4%B1kl%C4%B1-Oru%C3%A7/dp/6050962960) yayınladım. Kitabım birçok kişinin sağlığına ideal kilosuna ve sağlığına kavuşmasına yardım etti/ediyor.
 
-Ayrıca klinikte supplementasyonun çok değerli olduğunu düşündüğüm için birçok firmaya doğru ürün üretebilmeleri için formülizasyon konusunda danışmanlık yaptım.
-
 ### Ne yapıyorum?
 
 Şu anda zamanımın büyük kısmını yeni kitap projem için okuma yapmaya ayırıyorum. Ayrıca birkaç bilimsel dergi için editörlük/danışmanlık yapıyorum.
 
 Son zamanlarda en çok keyif aldığım şey ise kurumlar için özel eğitim/workshop düzenlemek ve bildiklerimi anlatmak. İnanılmaz keyifli bir aktivite olan "öğretmek ve paylaşmak" konusunda bu kadar geç adım attığım için ekstra pişmanım tabi. (Eğer etkinliğinizde yer almamı istiyorsanız [etkinlik daveti sayfasına](#etkinlik-daveti-sayfası) giderek ayrıntılı bilgi alabilirsiniz.)
 
-Ayrıca hala birçok kuruma yeni besin destekleri için formülizasyon/literatür konusunda proje bazlı danışmanlık yapıyorum.
+Ayrıca klinikte supplementasyonun çok değerli olduğunu düşündüğüm için birçok firmaya doğru ürün üretebilmeleri için formülizasyon/literatür konusunda danışmanlık yaptım/yapıyorum.
 
 ### Eğitim ne durumda?
 
@@ -44,7 +42,7 @@ Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi be
 
 ## Etkinlik Daveti
 
-Şu anda yapmaktan en çok keyif aldığım şey araştırma yaptığım ve uzmanlaştığım konuları anlatmak/öğretmek. Dolayısıyla programım ve etkinlik uygunsa bütün konuşma taleplerine karşılık vermeye çalışıyorum.
+Daha önce bahsettiğim gibi, şu an yapmaktan en çok keyif aldığım şey araştırma yaptığım ve uzmanlaştığım konuları anlatmak/öğretmek. Dolayısıyla programım ve etkinlik uygunsa bütün konuşma taleplerine karşılık vermeye çalışıyorum.
 
 Eğer etkinliğiniz için uygun olup olmadığımı düşünüyorsanız daha önceki etkinliklerde anlattığım konulardan birkaçını size fikir vermesi için aşağıda listeliyorum.
 
@@ -73,7 +71,7 @@ Son olarak **çoğu zaman** anlaşılmasa da **minimal bir konuşma bozukluğumu
 
 Bu duruma eskiden çok takılmama rağmen artık böyle bir durum söz konusu değil. -Sanırım- yaş ile beraber anlatma hızımın değil, anlattıklarımın değerli olduğunu öğrendim.
 
-Eğer konuşma davetinde bulunmak istiyorsanız hemen aşağıda bulunan [iletişim bölümü](#iletişim) aracılığıyla bana ulaşabilirsiniz.
+Eğer konuşma davetinde bulunmak istiyorsanız hemen aşağıda bulunan [iletişim bölümü](#i̇letişim) aracılığıyla bana ulaşabilirsiniz.
 
 ## İletişim
 
