@@ -87,10 +87,10 @@ Biliyorum mail adresinizin "spam mail" çöplüğüne dönmesinden korkuyorsunuz
 
 Mail listesine abone olmak için yapmanız gereken tek şey [bu linke](https://bit.ly/2MrInHS) tıklayarak açılan sayfayı takip etmek.
 
-En son yol ise daha çok iş sebepli kullandığım iletişim formu. Bu formu doğru kullanabilmeniz için birkaç hatırlatma ile başlamak istiyorum. Zira aşağıdaki konularla ilgili iletişim taleplerini çok fazla mail aldığım için nazikçe reddetmek zorundayım.
+En son yol ise daha çok iş sebepli kullandığım mail adresim. Bu mail adresini doğru kullanabilmeniz için birkaç hatırlatma ile başlamak istiyorum. Zira aşağıdaki konularla ilgili iletişim taleplerini çok fazla mail aldığım elemek zorundayım.
 
-1. Uzaktan tıbbi destek/öneri taleplerini hekimliğin doğası gereği **kesinlikle** yanıtsız bırakıyorum. Zira sizi görmeden/muayene etmeden tam anlayamayacağım ve tanı koyamayacağım için verdiğim her öneri faydadan çok zarar oluşturur.
+1. Uzaktan tıbbi destek/öneri taleplerini hekimliğin doğası gereği **kesinlikle** yanıtsız bırakıyorum. Zira sizi görmeden/muayene etmeden tam anlayamayacağım ve tanı koyamayacağım için verdiğim her öneri faydadan çok zarar oluşturur. 
 2. Kısa zaman içerisinde bitirilmesi gereken yazı isteklerini **çoğu zaman** yanıtsız bırakıyorum. Haftaya çıkacak bir dergiye/gazeteye yazı istemek aslında “boş yer kaldı, gel doldur” demekten farklı değil. Mücbir durumlarda tabi ki (yeni ortaya çıkan bir hastalık, durum ve benzeri konularda görüş almak için istenen yazıları ve röportaj talepleri) zaman kısıtlamasına önem vermiyorum.
 3. Ürün tanıtımı için randevu taleplerini **çoğu zaman** yanıtsız bırakıyorum. Çünkü bu minvaldeki çoğu talep kanıta dayalı olmuyor ya da alışılmış ürünlerin tanıtımını içeriyor. Eğer yenilikçi bir ürününüz varsa ve benimle paylaşmak istiyorsanız lütfen bilimsel araştırmaları mailinize ekleyiniz.
 
-Evet, eğer yukarıdaki keskin sınırların dışında kalan bir hususta bana yazmak isterseniz lütfen **can(at)drciftci(nokta)com** adresini kullanabilirsiniz.
+Evet, eğer yukarıdaki keskin sınırların dışında kalan bir hususta bana yazmak isterseniz lütfen **can(at)drciftci(nokta)com** adresini kullanarak bana ulaşın.
