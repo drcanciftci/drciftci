@@ -85,7 +85,7 @@ Benimle iletişimde kalmanın birçok yolu var. Bunlardan ilki sosyal medya. Sı
 
 Biliyorum mail adresinizin "spam mail" çöplüğüne dönmesinden korkuyorsunuz ama bana güvenebilirsiniz. Mail adresinizi **asla** satmayacak ya da paylaşmayacağım.
 
-Mail listesine abone olmak için yapmanız gereken tek şey [bu linke](https://bit.ly/2MrInHS) tıklayarak açılan sayfayı takip etmek.
+Mail listesine abone olmak için yapmanız gereken tek şey [bu linke](https://drcan.substack.com/welcome) tıklayarak açılan sayfayı takip etmek.
 
 En son yol ise daha çok iş sebepli kullandığım mail adresim. Bu mail adresini doğru kullanabilmeniz için birkaç hatırlatma ile başlamak istiyorum. Zira aşağıdaki konularla ilgili iletişim taleplerini çok fazla mail aldığım elemek zorundayım.
 
