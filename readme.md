@@ -40,7 +40,8 @@ Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi be
 - **World Society of Anti Aging Medicine:** Anti Aging Medicine Practitioner
 - **Medipol Üniversitesi:** Fitoterapi Uygulayıcı Eğitimi
 - **World Obesity Fedaration:** Obesity Professional Education
-- **Cerrahpaşa Tıp Fakültesi Fizyoloji:** Doktora Programı (Duraklatıldı)
+- **Cerrahpaşa Tıp Fakültesi Fizyoloji:** Doktora Programı (Duraklatıldı - bırakıldı)
+- **İstanbul Eğitim ve Araştırma Hastanesi:** İç Hastalıkları İhtisası (devam ediyor)
 
 ## Etkinlik Daveti
 
