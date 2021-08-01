@@ -1,7 +1,7 @@
 Bana şifreli olarak ulaşmak yada elektronik olarak imzaladığım dosyaları doğrulamak için lütfen aşağıdaki "PGP anahtarını" kullanın. 
 
 Key ID: 16BBF2F1
-Fingerprint: 6D58 FF56 D658 6DAB EC48 28D4 CE2E 4014 16BB F2F1
+Fingerprint: 6D58 FF56 D658 6DAB EC48  28D4 CE2E 4014 16BB F2F1
 
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
