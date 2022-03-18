@@ -16,9 +16,13 @@ O dönemden sonra hayatımın amacını bulmuştum. Obeziteye doğru yaklaşacak
 
 ### Ne yaptım?
 
-Geçtiğimiz yıllar içerisinde [fitekran.com’u](http://fitekran.com/) kurdum ve editörlüğünü yaptım. Fitekran şu an yıllık 10 milyondan fazla sayfa görüntülenmesiyle hatırı sayılır bir sağlık internet sitesi.
+1. Geçtiğimiz yıllar içerisinde [fitekran.com’u](http://fitekran.com/) kurdum ve editörlüğünü yaptım. Fitekran şu an yıllık 10 milyondan fazla sayfa görüntülenmesiyle hatırı sayılır bir sağlık internet sitesi.
+2. Fitekran içerisindeki bilgiler dağınık olduğu için beslenmeye genel bakışımı ve klinik tecrübelerimi paylaştığım [ketofasting kitabını](https://www.amazon.com.tr/Ketofasting-Ketojenik-Beslenme-Aral%C4%B1kl%C4%B1-Oru%C3%A7/dp/6050962960) yayınladım. Kitabım birçok kişinin sağlığına ideal kilosuna ve sağlığına kavuşmasına yardım etti/ediyor.
+3. Ağırlıklı olarak ketojenik tarifler içeren güzel bir kaynak olan, Amy Ramos tarafından yazılmış [Ketojenik Diyet](https://www.dr.com.tr/Kitap/Ketojenik-Diyet/Egitim-Basvuru/Saglik/Beslenme-Diyet/urunno=0001934115001) kitabının çeviri editörlüğünü üstlendim. 
+4. Lyme hastalığı ile ilgili deneyimlerimi ve güncel çalışmaları topladığım [Bir Hayalet Hastalık: Lyme](https://www.dr.com.tr/kitap/bir-hayalet-hastalik-lyme/ismail-can-ciftci/egitim-basvuru/saglik/beden-sagligi/urunno=0001968226001) kitabını yayınladım.
+5. 21. Çapa Gastroenterohepatoloji Kongresinde "Covid-19'da Amilaz, Lipaz Yuksekligi ve Pankreatik Tutulum" adı ile poster sunumu yaptım.
 
-Ardından internet sitesindeki bilgiler dağınık olduğu için beslenmeye genel bakışımı ve klinik tecrübelerimi paylaştığım [ketofasting kitabını](https://www.amazon.com.tr/Ketofasting-Ketojenik-Beslenme-Aral%C4%B1kl%C4%B1-Oru%C3%A7/dp/6050962960) yayınladım. Kitabım birçok kişinin sağlığına ideal kilosuna ve sağlığına kavuşmasına yardım etti/ediyor.
+Son olarak hız kesmeden yeni kitap çalışmama devam ediyor, uluslararası birkaç bilimsel çalışma için süreçleri ilerletmekteyim. 
 
 ### Ne yapıyorum?
 
