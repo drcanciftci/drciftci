@@ -20,7 +20,7 @@ O dönemden sonra hayatımın amacını bulmuştum. Obeziteye doğru yaklaşacak
 2. Fitekran içerisindeki bilgiler dağınık olduğu için beslenmeye genel bakışımı ve klinik tecrübelerimi paylaştığım [ketofasting kitabını](https://www.amazon.com.tr/Ketofasting-Ketojenik-Beslenme-Aral%C4%B1kl%C4%B1-Oru%C3%A7/dp/6050962960) yayınladım. Kitabım birçok kişinin sağlığına ideal kilosuna ve sağlığına kavuşmasına yardım etti/ediyor.
 3. Ağırlıklı olarak ketojenik tarifler içeren güzel bir kaynak olan, Amy Ramos tarafından yazılmış [Ketojenik Diyet](https://www.dr.com.tr/Kitap/Ketojenik-Diyet/Egitim-Basvuru/Saglik/Beslenme-Diyet/urunno=0001934115001) kitabının çeviri editörlüğünü üstlendim. 
 4. Lyme hastalığı ile ilgili deneyimlerimi ve güncel çalışmaları topladığım [Bir Hayalet Hastalık: Lyme](https://www.dr.com.tr/kitap/bir-hayalet-hastalik-lyme/ismail-can-ciftci/egitim-basvuru/saglik/beden-sagligi/urunno=0001968226001) kitabını yayınladım.
-5. 21. Çapa Gastroenterohepatoloji Kongresinde "Covid-19'da Amilaz, Lipaz Yuksekligi ve Pankreatik Tutulum" adı ile poster sunumu yaptım.
+5. Çapa Gastroenterohepatoloji Kongresinde "Covid-19'da Amilaz, Lipaz Yuksekligi ve Pankreatik Tutulum" adı ile poster sunumu yaptım.
 
 Son olarak hız kesmeden yeni kitap çalışmama devam ediyor, uluslararası birkaç bilimsel çalışma için süreçleri ilerletmekteyim. 
 
@@ -32,7 +32,7 @@ Son zamanlarda en çok keyif aldığım şey ise kurumlar için özel eğitim/wo
 
 Ayrıca klinikte supplementasyonun çok değerli olduğunu düşündüğüm için birçok firmaya doğru ürün üretebilmeleri için formülizasyon/literatür konusunda danışmanlık yaptım/yapıyorum.
 
-Bu arada 2 yıl önce açtığım klinikte beslenme ve fonksiyonel tıp alanında gördüğüm 3000 üzerinde hasta ile geniş bir aile oluşturdum. (Hala çok sınırlı sürelerle hastalarımı görmeye devam ediyorum)
+Bu arada 2 yıl önce açtığım klinikte beslenme ve fonksiyonel tıp alanında gördüğüm 3000 üzerinde hasta ile geniş bir aile oluşturdum. **Ne yazık ki şu anda yeni hasta görmemekteyim**
 
 ### Eğitim ne durumda?
 
