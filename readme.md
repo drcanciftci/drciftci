@@ -21,6 +21,7 @@ O dönemden sonra hayatımın amacını bulmuştum. Obeziteye doğru yaklaşacak
 3. Ağırlıklı olarak ketojenik tarifler içeren güzel bir kaynak olan, Amy Ramos tarafından yazılmış [Ketojenik Diyet](https://www.dr.com.tr/Kitap/Ketojenik-Diyet/Egitim-Basvuru/Saglik/Beslenme-Diyet/urunno=0001934115001) kitabının çeviri editörlüğünü üstlendim. 
 4. Lyme hastalığı ile ilgili deneyimlerimi ve güncel çalışmaları topladığım [Bir Hayalet Hastalık: Lyme](https://www.dr.com.tr/kitap/bir-hayalet-hastalik-lyme/ismail-can-ciftci/egitim-basvuru/saglik/beden-sagligi/urunno=0001968226001) kitabını yayınladım.
 5. Çapa Gastroenterohepatoloji Kongresinde "Covid-19'da Amilaz, Lipaz Yuksekligi ve Pankreatik Tutulum" adı ile poster sunumu yaptım.
+6. İç hastalıkları uzmanlık eğitimini tamamladım ve uzman doktor ünvanı aldım. 
 
 Son olarak hız kesmeden yeni kitap çalışmama devam ediyor, uluslararası birkaç bilimsel çalışma için süreçleri ilerletmekteyim. 
 
@@ -45,7 +46,7 @@ Katıldığım “küçük konferansları ve toplantıları dahil etmediğimi be
 - **Medipol Üniversitesi:** Fitoterapi Uygulayıcı Eğitimi
 - **World Obesity Fedaration:** Obesity Professional Education
 - **Cerrahpaşa Tıp Fakültesi Fizyoloji:** Doktora Programı (Duraklatıldı ve bırakıldı)
-- **İstanbul Eğitim ve Araştırma Hastanesi:** İç Hastalıkları İhtisası (devam ediyor)
+- **İstanbul Eğitim ve Araştırma Hastanesi:** İç Hastalıkları İhtisası 
 
 ## Etkinlik Daveti
 
