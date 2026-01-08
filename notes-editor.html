@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Offline-first Markdown Not Editörü">
+    <title>📝 Markdown Notes</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* ========== Font System ========== */
+        :root {
+            /* Typography Scale (1.25 ratio) */
+            --font-size-xs: 0.75rem;
+            /* 12px */
+            --font-size-sm: 0.8125rem;
+            /* 13px */
+            --font-size-base: 0.9375rem;
+            /* 15px */
+            --font-size-md: 1rem;
+            /* 16px */
+            --font-size-lg: 1.125rem;
+            /* 18px */
+            --font-size-xl: 1.25rem;
+            /* 20px */
+            --font-size-2xl: 1.5rem;
+            /* 24px */
+            --font-size-3xl: 1.875rem;
+            /* 30px */
+
+            /* Font Families */
+            --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+
+            /* Line Heights */
+            --line-height-tight: 1.25;
+            --line-height-snug: 1.375;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.625;
+            --line-height-loose: 1.75;
+
+            /* Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fb;
+            --bg-tertiary: #f0f1f4;
+            --bg-hover: #e8eaee;
+            --text-primary: #1a1d24;
+            --text-secondary: #4b5161;
+            --text-muted: #8b919e;
+            --accent: #5c6bc0;
+            --accent-hover: #4a59b0;
+            --accent-light: #e8eaf6;
+            --border: #e3e5ea;
+            --border-light: #f0f1f4;
+            --shadow: rgba(0, 0, 0, 0.06);
+            --shadow-lg: rgba(0, 0, 0, 0.1);
+            --success: #43a047;
+            --warning: #fb8c00;
+            --error: #e53935;
+            --tag-bg: #ede7f6;
+            --tag-text: #5e35b1;
+            --code-bg: #f5f6f8;
+            --code-border: #e3e5ea;
+            --blockquote-bg: #fafbfc;
+            --blockquote-border: #5c6bc0;
+            --link-color: #1976d2;
+            --scrollbar-bg: #f5f6f8;
+            --scrollbar-thumb: #d0d3d9;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --bg-hover: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #a8b3c4;
+            --text-muted: #6b7688;
+            --accent: #7c8ade;
+            --accent-hover: #9499e0;
+            --accent-light: #21262d;
+            --border: #30363d;
+            --border-light: #21262d;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-lg: rgba(0, 0, 0, 0.4);
+            --tag-bg: #2d2450;
+            --tag-text: #b39ddb;
+            --code-bg: #161b22;
+            --code-border: #30363d;
+            --blockquote-bg: #161b22;
+            --blockquote-border: #7c8ade;
+            --link-color: #58a6ff;
+            --scrollbar-bg: #161b22;
+            --scrollbar-thumb: #30363d;
+        }
+
+        /* ========== Reset ========== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========== Scrollbar ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* ========== Layout ========== */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+        }
+
+        /* ========== Toolbar ========== */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .toolbar-left,
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-title {
+            font-weight: 600;
+            font-size: var(--font-size-base);
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border: none;
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+        }
+
+        .btn-icon {
+            padding: 7px;
+            min-width: 36px;
+            min-height: 36px;
+        }
+
+        .btn-icon span {
+            font-size: 16px;
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        .file-name {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .unsaved-indicator {
+            display: none;
+            width: 8px;
+            height: 8px;
+            background: var(--warning);
+            border-radius: 50%;
+        }
+
+        .unsaved-indicator.show {
+            display: inline-block;
+        }
+
+        .shortcuts-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+
+        .shortcuts-toolbar kbd {
+            background: var(--bg-tertiary);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: var(--font-sans);
+            font-size: 10px;
+        }
+
+        /* ========== Quick Note ========== */
+        .quick-note-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .quick-note-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .quick-note-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .quick-note-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ========== Main Layout ========== */
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ========== Outline Panel ========== */
+        .outline-panel {
+            width: 260px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .outline-header {
+            padding: 14px 16px;
+            font-weight: 600;
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .outline-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .date-group {
+            margin-bottom: 4px;
+        }
+
+        .date-header {
+            padding: 9px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s;
+            background: var(--bg-tertiary);
+        }
+
+        .date-header:hover {
+            background: var(--bg-hover);
+        }
+
+        .date-header.today {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .date-chevron {
+            font-size: 10px;
+            transition: transform 0.2s;
+        }
+
+        .date-chevron.open {
+            transform: rotate(90deg);
+        }
+
+        .date-children {
+            display: none;
+            padding-left: 8px;
+            margin-top: 4px;
+        }
+
+        .date-children.open {
+            display: block;
+        }
+
+        .outline-item {
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+            margin: 2px 0;
+        }
+
+        .outline-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .outline-item.h3 {
+            padding-left: 20px;
+            font-size: var(--font-size-xs);
+        }
+
+        .outline-item-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ========== Tags ========== */
+        .tags-section {
+            border-top: 1px solid var(--border);
+            padding: 12px;
+        }
+
+        .tags-header {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag-item {
+            padding: 4px 10px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            border-radius: 20px;
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .tag-item:hover {
+            transform: scale(1.05);
+        }
+
+        .tag-item.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ========== Editor & Preview Container ========== */
+        .editor-preview-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .editor-pane,
+        .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-pane {
+            border-right: 1px solid var(--border);
+        }
+
+        .pane-header {
+            padding: 10px 16px;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ========== Editor ========== */
+        .editor-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .line-numbers {
+            width: 48px;
+            padding: 20px 10px;
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .editor-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 20px 24px;
+            border: none;
+            resize: none;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            outline: none;
+            tab-size: 2;
+        }
+
+        .editor-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ========== Preview - Obsidian/Bear/Notion Style ========== */
+        .preview-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 40px;
+            background: var(--bg-primary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Headings */
+        .preview-content h1,
+        .preview-content h2,
+        .preview-content h3,
+        .preview-content h4,
+        .preview-content h5,
+        .preview-content h6 {
+            font-family: var(--font-sans);
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: var(--line-height-tight);
+            margin-top: 1.75em;
+            margin-bottom: 0.75em;
+            letter-spacing: -0.01em;
+        }
+
+        .preview-content h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4em;
+            margin-top: 0;
+        }
+
+        .preview-content h2 {
+            font-size: var(--font-size-2xl);
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.3em;
+        }
+
+        .preview-content h3 {
+            font-size: var(--font-size-xl);
+        }
+
+        .preview-content h4 {
+            font-size: var(--font-size-lg);
+        }
+
+        .preview-content h5 {
+            font-size: var(--font-size-md);
+        }
+
+        .preview-content h6 {
+            font-size: var(--font-size-base);
+            color: var(--text-secondary);
+        }
+
+        /* Paragraphs */
+        .preview-content p {
+            font-size: var(--font-size-md);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 1.25em;
+            color: var(--text-primary);
+            letter-spacing: 0.01em;
+        }
+
+        /* Lists */
+        .preview-content ul,
+        .preview-content ol {
+            font-size: var(--font-size-md);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 1.25em;
+            padding-left: 1.75em;
+        }
+
+        .preview-content li {
+            margin-bottom: 0.4em;
+        }
+
+        .preview-content li>ul,
+        .preview-content li>ol {
+            margin-top: 0.4em;
+            margin-bottom: 0;
+        }
+
+        /* Inline Code */
+        .preview-content code {
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--text-primary);
+        }
+
+        /* Code Blocks */
+        .preview-content pre {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            margin-bottom: 1.5em;
+        }
+
+        .preview-content pre code {
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Blockquote */
+        .preview-content blockquote {
+            border-left: 4px solid var(--blockquote-border);
+            background: var(--blockquote-bg);
+            margin: 1.5em 0;
+            padding: 1em 1.25em;
+            border-radius: 0 8px 8px 0;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .preview-content blockquote p {
+            margin-bottom: 0;
+        }
+
+        /* Links */
+        .preview-content a {
+            color: var(--link-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s;
+        }
+
+        .preview-content a:hover {
+            border-bottom-color: var(--link-color);
+        }
+
+        /* Horizontal Rule */
+        .preview-content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5em 0;
+        }
+
+        /* Tables */
+        .preview-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5em;
+            font-size: var(--font-size-sm);
+        }
+
+        .preview-content th,
+        .preview-content td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .preview-content th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        /* Images */
+        .preview-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1em 0;
+        }
+
+        /* Tags */
+        .preview-content .tag-highlight {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.875em;
+            font-weight: 500;
+        }
+
+        /* Checkboxes */
+        .preview-content input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.15);
+            accent-color: var(--accent);
+        }
+
+        /* ========== Search Modal ========== */
+        .search-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .search-overlay.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-modal {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            box-shadow: 0 20px 40px var(--shadow-lg);
+            width: 90%;
+            max-width: 520px;
+            border: 1px solid var(--border);
+        }
+
+        .search-input-container {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .search-input-container span {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-md);
+            background: transparent;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-results {
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+        }
+
+        .search-result-item:hover,
+        .search-result-item.selected {
+            background: var(--bg-secondary);
+        }
+
+        .search-result-line {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .search-result-text {
+            font-size: var(--font-size-sm);
+        }
+
+        .search-result-text mark {
+            background: var(--warning);
+            color: white;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+
+        .search-footer {
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* ========== Toast ========== */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 20px var(--shadow-lg);
+            font-size: var(--font-size-sm);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--error);
+        }
+
+        /* ========== Welcome Modal ========== */
+        .welcome-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3000;
+            backdrop-filter: blur(8px);
+        }
+
+        .welcome-overlay.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-modal {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 36px;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .welcome-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .welcome-text {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .welcome-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* ========== Mobile ========== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .btn span.btn-text {
+                display: none;
+            }
+
+            .toolbar-title {
+                display: block;
+            }
+
+            .file-name,
+            .shortcuts-toolbar {
+                display: none;
+            }
+
+            .outline-panel {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                z-index: 500;
+                transition: left 0.3s;
+                box-shadow: 4px 0 20px var(--shadow-lg);
+            }
+
+            .outline-panel.open {
+                left: 0;
+            }
+
+            .outline-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 400;
+            }
+
+            .outline-overlay.show {
+                display: block;
+            }
+
+            .mobile-tabs {
+                display: flex;
+                background: var(--bg-secondary);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .mobile-tab {
+                flex: 1;
+                padding: 10px;
+                text-align: center;
+                font-size: var(--font-size-sm);
+                font-weight: 500;
+                color: var(--text-secondary);
+                border: none;
+                background: transparent;
+                border-bottom: 2px solid transparent;
+                font-family: var(--font-sans);
+            }
+
+            .mobile-tab.active {
+                color: var(--accent);
+                border-bottom-color: var(--accent);
+            }
+
+            .editor-pane,
+            .preview-pane {
+                display: none;
+                border: none;
+            }
+
+            .editor-pane.active,
+            .preview-pane.active {
+                display: flex;
+            }
+
+            .pane-header {
+                display: none;
+            }
+
+            .preview-content {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-tabs {
+                display: none;
+            }
+
+            .outline-overlay {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-icon hamburger" onclick="toggleOutline()"><span>☰</span></button>
+                <span class="toolbar-title">📝 Notes</span>
+                <button class="btn btn-secondary" onclick="openFile()" title="Ctrl+O"><span>📂</span><span
+                        class="btn-text">Aç</span></button>
+                <button class="btn btn-primary" onclick="saveFile()" title="Ctrl+S"><span>💾</span><span
+                        class="btn-text">Kaydet</span></button>
+                <button class="btn btn-secondary" onclick="exportFile()"><span>⬇️</span><span
+                        class="btn-text">Export</span></button>
+                <span class="file-name" id="fileName">Dosya seçilmedi</span>
+                <span class="unsaved-indicator" id="unsavedIndicator"></span>
+            </div>
+            <div class="toolbar-right">
+                <div class="shortcuts-toolbar"><kbd>⌘S</kbd> Kaydet <kbd>⌘F</kbd> Ara <kbd>⌘N</kbd> Not</div>
+                <button class="btn btn-icon btn-secondary" onclick="openSearch()"
+                    title="Ara (Ctrl+F)"><span>🔍</span></button>
+                <button class="btn btn-icon btn-secondary" onclick="toggleTheme()"
+                    id="themeToggle"><span>🌙</span></button>
+            </div>
+        </header>
+        <div class="quick-note-container">
+            <input type="text" class="quick-note-input" id="quickNoteInput" placeholder="✨ Hızlı not ekle..."
+                onkeydown="if(event.key==='Enter')addQuickNote()">
+            <button class="btn btn-primary" onclick="addQuickNote()"><span>➕</span><span
+                    class="btn-text">Ekle</span></button>
+        </div>
+        <main class="main-content">
+            <div class="outline-overlay" id="outlineOverlay" onclick="toggleOutline()"></div>
+            <aside class="outline-panel" id="outlinePanel">
+                <div class="outline-header">📑 Outline</div>
+                <div class="outline-list" id="outlineList"></div>
+                <div class="tags-section" id="tagsSection">
+                    <div class="tags-header">🏷️ Tags</div>
+                    <div class="tags-list" id="tagsList"></div>
+                </div>
+            </aside>
+            <div class="editor-preview-container">
+                <div class="mobile-tabs">
+                    <button class="mobile-tab active" onclick="switchTab('editor')">✏️ Editor</button>
+                    <button class="mobile-tab" onclick="switchTab('preview')">👁️ Preview</button>
+                </div>
+                <div class="editor-pane active" id="editorPane">
+                    <div class="pane-header"><span>✏️ Editor</span><span id="cursorPosition">Satır 1</span></div>
+                    <div class="editor-wrapper">
+                        <div class="line-numbers" id="lineNumbers"></div>
+                        <textarea class="editor-textarea" id="editor" placeholder="Markdown yazmaya başlayın..."
+                            spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="preview-pane" id="previewPane">
+                    <div class="pane-header"><span>👁️ Preview</span></div>
+                    <div class="preview-content" id="preview"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+        <div class="search-modal">
+            <div class="search-input-container"><span>🔍</span><input type="text" class="search-input" id="searchInput"
+                    placeholder="Ara..." oninput="performSearch()" onkeydown="handleSearchKey(event)"></div>
+            <div class="search-results" id="searchResults"></div>
+            <div class="search-footer"><span id="searchCount">0 sonuç</span><span>↑↓ gezin · Enter git · Esc
+                    kapat</span></div>
+        </div>
+    </div>
+    <div class="toast-container" id="toastContainer"></div>
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-modal">
+            <div class="welcome-icon">📝</div>
+            <h2 class="welcome-title">Markdown Notes</h2>
+            <p class="welcome-text">Tüm notlarınızı tek bir .md dosyasında tutun. Minimal, hızlı ve offline.</p>
+            <div class="welcome-buttons">
+                <button class="btn btn-primary" onclick="openFile();closeWelcome()">📂 Dosya Aç</button>
+                <button class="btn btn-secondary" onclick="startFresh()">✨ Yeni Başla</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const state = { content: '', fileHandle: null, fileName: null, hasUnsavedChanges: false, theme: 'light', searchResults: [], selectedSearchIndex: -1, activeTag: null, expandedDates: {}, saveTimeout: null };
+        const STORAGE = { CONTENT: 'md-editor-content', THEME: 'md-editor-theme', FILE_NAME: 'md-editor-file-name', EXPANDED: 'md-editor-expanded' };
+
+        const DEFAULT_CONTENT = `## 📥 Inbox
+- [${formatDate(new Date())}] İlk notunuz burada
+
+## 09.01.26
+### Günlük Notlar
+- Örnek not içeriği #örnek
+- Başka bir not #tag
+
+## Welcome
+Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
+
+### Özellikler
+- Hızlı not ekleme
+- Tarih bazlı gruplama (DD.MM.YY formatı)
+- Tag sistemi #etiket
+- Obsidian/Bear kalitesinde preview
+`;
+
+        const $ = id => document.getElementById(id);
+        const editor = $('editor'), preview = $('preview'), outlineList = $('outlineList'), tagsList = $('tagsList');
+        const quickNoteInput = $('quickNoteInput'), searchOverlay = $('searchOverlay'), searchInput = $('searchInput');
+        const searchResults = $('searchResults'), searchCount = $('searchCount'), lineNumbers = $('lineNumbers');
+        const fileName = $('fileName'), unsavedIndicator = $('unsavedIndicator'), themeToggle = $('themeToggle');
+        const welcomeOverlay = $('welcomeOverlay'), outlinePanel = $('outlinePanel'), outlineOverlay = $('outlineOverlay');
+
+        function init() {
+            loadTheme();
+            loadExpandedState();
+            loadContent();
+            editor.addEventListener('input', debounce(handleInput, 300));
+            editor.addEventListener('scroll', () => lineNumbers.scrollTop = editor.scrollTop);
+            editor.addEventListener('keyup', updateCursor);
+            document.addEventListener('keydown', handleShortcuts);
+            window.addEventListener('beforeunload', e => { if (state.hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
+            if (!localStorage.getItem(STORAGE.CONTENT)) welcomeOverlay.classList.add('show');
+        }
+
+        function loadTheme() { setTheme(localStorage.getItem(STORAGE.THEME) || 'light'); }
+        function loadExpandedState() { try { state.expandedDates = JSON.parse(localStorage.getItem(STORAGE.EXPANDED)) || {}; } catch { state.expandedDates = {}; } }
+        function saveExpandedState() { localStorage.setItem(STORAGE.EXPANDED, JSON.stringify(state.expandedDates)); }
+
+        function loadContent() {
+            const saved = localStorage.getItem(STORAGE.CONTENT);
+            const savedName = localStorage.getItem(STORAGE.FILE_NAME);
+            if (saved) { state.content = saved; editor.value = saved; }
+            if (savedName) { state.fileName = savedName; fileName.textContent = savedName; }
+            updateAll();
+        }
+
+        function handleInput() {
+            state.content = editor.value;
+            state.hasUnsavedChanges = true;
+            unsavedIndicator.classList.add('show');
+            updateAll();
+            if (state.saveTimeout) clearTimeout(state.saveTimeout);
+            state.saveTimeout = setTimeout(() => localStorage.setItem(STORAGE.CONTENT, editor.value), 1000);
+        }
+
+        function updateAll() { updatePreview(); updateOutline(); updateTags(); updateLineNumbers(); }
+
+        function updatePreview() {
+            let content = editor.value.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, '<span class="tag-highlight">#$1</span>');
+            marked.setOptions({ breaks: true, gfm: true });
+            preview.innerHTML = marked.parse(content);
+        }
+
+        function updateLineNumbers() {
+            const lines = editor.value.split('\n');
+            lineNumbers.innerHTML = lines.map((_, i) => `<div>${i + 1}</div>`).join('');
+        }
+
+        function updateCursor() {
+            const text = editor.value.substring(0, editor.selectionStart);
+            $('cursorPosition').textContent = `Satır ${text.split('\n').length}`;
+        }
+
+        // Date patterns: DD.MM.YY, DD.MM.YYYY, YYYY-MM-DD
+        function parseDate(str) {
+            // DD.MM.YY (09.01.26)
+            let m = str.match(/^(\d{2})\.(\d{2})\.(\d{2})$/);
+            if (m) return { orig: str, day: m[1], month: m[2], year: '20' + m[3], display: str };
+
+            // DD.MM.YYYY (09.01.2026)
+            m = str.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+            if (m) return { orig: str, day: m[1], month: m[2], year: m[3], display: str };
+
+            // YYYY-MM-DD (2026-01-09)
+            m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (m) return { orig: str, day: m[3], month: m[2], year: m[1], display: str };
+
+            return null;
+        }
+
+        function isToday(parsed) {
+            if (!parsed) return false;
+            const now = new Date();
+            const y = now.getFullYear().toString();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            return parsed.year === y && parsed.month === m && parsed.day === d;
+        }
+
+        function updateOutline() {
+            const lines = editor.value.split('\n');
+            const dateRegex = /^##\s+(\d{2}\.\d{2}\.\d{2,4}|\d{4}-\d{2}-\d{2})\s*$/;
+            const headingRegex = /^(#{2,3})\s+(.+)$/;
+            const groups = [];
+            let currentGroup = null;
+
+            lines.forEach((line, idx) => {
+                const dateMatch = line.match(dateRegex);
+                if (dateMatch) {
+                    const parsed = parseDate(dateMatch[1]);
+                    currentGroup = { date: dateMatch[1], parsed, line: idx + 1, children: [], isToday: isToday(parsed) };
+                    groups.push(currentGroup);
+                } else {
+                    const headingMatch = line.match(headingRegex);
+                    if (headingMatch) {
+                        const item = { level: headingMatch[1].length, text: headingMatch[2], line: idx + 1 };
+                        if (currentGroup) currentGroup.children.push(item);
+                        else groups.push({ date: null, text: item.text, line: idx + 1, level: item.level, children: [] });
+                    }
+                }
+            });
+
+            if (groups.length === 0) {
+                outlineList.innerHTML = '<div class="outline-item" style="color:var(--text-muted)">Başlık yok</div>';
+                return;
+            }
+
+            outlineList.innerHTML = groups.map(g => {
+                if (g.date) {
+                    const isOpen = state.expandedDates[g.date] !== false;
+                    const label = g.isToday ? `📅 ${g.date} (bugün)` : `📅 ${g.date}`;
+                    return `<div class="date-group">
+                <div class="date-header ${g.isToday ? 'today' : ''}" onclick="toggleDate('${g.date}', ${g.line})">
+                    <span class="date-chevron ${isOpen ? 'open' : ''}">▸</span>
+                    <span>${label}</span>
+                </div>
+                <div class="date-children ${isOpen ? 'open' : ''}" id="date-${g.date.replace(/\./g, '-')}">
+                    ${g.children.map(c => `<div class="outline-item h${c.level}" onclick="scrollToLine(${c.line})"><span class="outline-item-text">${escapeHtml(c.text)}</span></div>`).join('')}
+                </div>
+            </div>`;
+                } else {
+                    return `<div class="outline-item h${g.level}" onclick="scrollToLine(${g.line})"><span class="outline-item-text">${escapeHtml(g.text)}</span></div>`;
+                }
+            }).join('');
+        }
+
+        function toggleDate(date, line) {
+            const isOpen = state.expandedDates[date] !== false;
+            state.expandedDates[date] = !isOpen;
+            saveExpandedState();
+            updateOutline();
+            if (!isOpen) scrollToLine(line);
+        }
+
+        function scrollToLine(lineNum) {
+            const lines = editor.value.split('\n');
+            let charIdx = 0;
+            for (let i = 0; i < lineNum - 1; i++) charIdx += lines[i].length + 1;
+            editor.focus();
+            editor.setSelectionRange(charIdx, charIdx);
+            const lineHeight = 24; // approximate
+            editor.scrollTop = (lineNum - 5) * lineHeight;
+            if (window.innerWidth <= 768) toggleOutline();
+            updateCursor();
+        }
+
+        function updateTags() {
+            const tags = [...new Set(editor.value.match(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g) || [])];
+            if (!tags.length) { $('tagsSection').style.display = 'none'; return; }
+            $('tagsSection').style.display = 'block';
+            tagsList.innerHTML = tags.map(t => `<div class="tag-item ${state.activeTag === t ? 'active' : ''}" onclick="filterTag('${t}')">${t}</div>`).join('');
+        }
+
+        function filterTag(tag) {
+            state.activeTag = state.activeTag === tag ? null : tag;
+            updateTags();
+            if (state.activeTag) {
+                const idx = editor.value.indexOf(tag);
+                if (idx !== -1) scrollToLine(editor.value.substring(0, idx).split('\n').length);
+            }
+        }
+
+        function addQuickNote() {
+            const text = quickNoteInput.value.trim();
+            if (!text) return;
+            let content = editor.value;
+            const note = `- [${formatDate(new Date())}] ${text}`;
+            const inboxMatch = content.match(/^## 📥 Inbox\s*\n/m);
+            if (inboxMatch) content = content.slice(0, inboxMatch.index + inboxMatch[0].length) + note + '\n' + content.slice(inboxMatch.index + inboxMatch[0].length);
+            else content = `## 📥 Inbox\n${note}\n\n` + content;
+            editor.value = content;
+            quickNoteInput.value = '';
+            handleInput();
+            showToast('Not eklendi ✓', 'success');
+        }
+
+        async function openFile() {
+            if ('showOpenFilePicker' in window) {
+                try {
+                    const [handle] = await window.showOpenFilePicker({ types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }] });
+                    const file = await handle.getFile();
+                    state.fileHandle = handle;
+                    state.fileName = file.name;
+                    editor.value = await file.text();
+                    fileName.textContent = file.name;
+                    localStorage.setItem(STORAGE.FILE_NAME, file.name);
+                    markSaved();
+                    handleInput();
+                    showToast('Açıldı: ' + file.name, 'success');
+                } catch (e) { if (e.name !== 'AbortError') showToast('Dosya açılamadı', 'error'); }
+            } else {
+                const input = document.createElement('input');
+                input.type = 'file'; input.accept = '.md';
+                input.onchange = async e => {
+                    const file = e.target.files[0];
+                    if (file) { state.fileName = file.name; editor.value = await file.text(); fileName.textContent = file.name; handleInput(); markSaved(); }
+                };
+                input.click();
+            }
+        }
+
+        async function saveFile() {
+            if ('showOpenFilePicker' in window && state.fileHandle) {
+                try {
+                    const w = await state.fileHandle.createWritable();
+                    await w.write(editor.value); await w.close();
+                    markSaved(); localStorage.setItem(STORAGE.CONTENT, editor.value);
+                    showToast('Kaydedildi ✓', 'success');
+                } catch { showToast('Kaydetme başarısız', 'error'); }
+            } else if ('showSaveFilePicker' in window) {
+                try {
+                    const handle = await window.showSaveFilePicker({ suggestedName: state.fileName || 'notes.md', types: [{ accept: { 'text/markdown': ['.md'] } }] });
+                    const w = await handle.createWritable();
+                    await w.write(editor.value); await w.close();
+                    state.fileHandle = handle;
+                    const file = await handle.getFile();
+                    state.fileName = file.name;
+                    fileName.textContent = file.name;
+                    localStorage.setItem(STORAGE.FILE_NAME, file.name);
+                    markSaved();
+                    showToast('Kaydedildi: ' + file.name, 'success');
+                } catch (e) { if (e.name !== 'AbortError') showToast('Kaydetme başarısız', 'error'); }
+            } else { exportFile(); }
+        }
+
+        function exportFile() {
+            const blob = new Blob([editor.value], { type: 'text/markdown' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = state.fileName || 'notes.md';
+            a.click();
+            showToast('İndirildi', 'success');
+        }
+
+        function markSaved() { state.hasUnsavedChanges = false; unsavedIndicator.classList.remove('show'); }
+
+        function openSearch() { searchOverlay.classList.add('show'); searchInput.focus(); searchInput.value = ''; searchResults.innerHTML = ''; }
+        function closeSearch() { searchOverlay.classList.remove('show'); }
+
+        function performSearch() {
+            const q = searchInput.value.toLowerCase().trim();
+            if (!q) { searchResults.innerHTML = ''; searchCount.textContent = '0 sonuç'; state.searchResults = []; return; }
+            const lines = editor.value.split('\n');
+            const results = [];
+            lines.forEach((line, i) => { if (line.toLowerCase().includes(q)) results.push({ line: i + 1, text: line, q }); });
+            state.searchResults = results;
+            state.selectedSearchIndex = results.length ? 0 : -1;
+            searchCount.textContent = `${results.length} sonuç`;
+            searchResults.innerHTML = results.map((r, i) => {
+                const hl = r.text.replace(new RegExp(`(${escapeRegex(q)})`, 'gi'), '<mark>$1</mark>');
+                return `<div class="search-result-item ${i === 0 ? 'selected' : ''}" onclick="goSearch(${i})"><div class="search-result-line">Satır ${r.line}</div><div class="search-result-text">${hl}</div></div>`;
+            }).join('') || '<div class="search-result-item" style="color:var(--text-muted)">Sonuç yok</div>';
+        }
+
+        function handleSearchKey(e) {
+            if (e.key === 'Escape') closeSearch();
+            else if (e.key === 'ArrowDown') { e.preventDefault(); if (state.selectedSearchIndex < state.searchResults.length - 1) { state.selectedSearchIndex++; updateSearchSel(); } }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); if (state.selectedSearchIndex > 0) { state.selectedSearchIndex--; updateSearchSel(); } }
+            else if (e.key === 'Enter') { e.preventDefault(); if (state.selectedSearchIndex >= 0) goSearch(state.selectedSearchIndex); }
+        }
+
+        function updateSearchSel() {
+            const items = searchResults.querySelectorAll('.search-result-item');
+            items.forEach((el, i) => el.classList.toggle('selected', i === state.selectedSearchIndex));
+            items[state.selectedSearchIndex]?.scrollIntoView({ block: 'nearest' });
+        }
+
+        function goSearch(i) { const r = state.searchResults[i]; if (r) { closeSearch(); scrollToLine(r.line); } }
+
+        function toggleTheme() { const t = state.theme === 'light' ? 'dark' : 'light'; setTheme(t); localStorage.setItem(STORAGE.THEME, t); }
+        function setTheme(t) { state.theme = t; document.documentElement.setAttribute('data-theme', t); themeToggle.querySelector('span').textContent = t === 'light' ? '🌙' : '☀️'; }
+
+        function toggleOutline() { outlinePanel.classList.toggle('open'); outlineOverlay.classList.toggle('show'); }
+        function switchTab(t) { document.querySelectorAll('.mobile-tab').forEach((el, i) => el.classList.toggle('active', i === (t === 'editor' ? 0 : 1))); $('editorPane').classList.toggle('active', t === 'editor'); $('previewPane').classList.toggle('active', t === 'preview'); }
+
+        function handleShortcuts(e) {
+            const ctrl = navigator.platform.includes('Mac') ? e.metaKey : e.ctrlKey;
+            if (ctrl) {
+                if (e.key === 's') { e.preventDefault(); saveFile(); }
+                else if (e.key === 'o') { e.preventDefault(); openFile(); }
+                else if (e.key === 'f') { e.preventDefault(); openSearch(); }
+                else if (e.key === 'n') { e.preventDefault(); quickNoteInput.focus(); }
+                else if (e.key === 'b' && document.activeElement === editor) { e.preventDefault(); wrap('**', '**'); }
+                else if (e.key === 'i' && document.activeElement === editor) { e.preventDefault(); wrap('*', '*'); }
+            }
+            if (e.key === 'Escape') { closeSearch(); closeWelcome(); }
+            if (e.key === 'Tab' && document.activeElement === editor) { e.preventDefault(); const s = editor.selectionStart; editor.value = editor.value.slice(0, s) + '  ' + editor.value.slice(editor.selectionEnd); editor.selectionStart = editor.selectionEnd = s + 2; handleInput(); }
+        }
+
+        function wrap(b, a) {
+            const s = editor.selectionStart, e = editor.selectionEnd, t = editor.value;
+            editor.value = t.slice(0, s) + b + t.slice(s, e) + a + t.slice(e);
+            editor.selectionStart = s + b.length; editor.selectionEnd = e + b.length;
+            editor.focus(); handleInput();
+        }
+
+        function showToast(msg, type = 'info') {
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.innerHTML = `<span>${msg}</span>`;
+            $('toastContainer').appendChild(t);
+            setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
+        }
+
+        function closeWelcome() { welcomeOverlay.classList.remove('show'); }
+        function startFresh() { editor.value = DEFAULT_CONTENT; handleInput(); closeWelcome(); showToast('Yeni notlar oluşturuldu', 'success'); }
+
+        function formatDate(d) {
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = String(d.getFullYear()).slice(-2);
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            return `${day}.${month}.${year} ${hours}:${minutes}`;
+        }
+        function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+        function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+        function debounce(fn, wait) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); }; }
+
+        init();
+    </script>
+</body>
+
+</html>
