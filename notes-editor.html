@@ -723,6 +723,19 @@
             font-weight: 500;
         }
 
+        /* Highlight ==text== */
+        .preview-content .text-highlight {
+            background: linear-gradient(120deg, #fff176 0%, #ffee58 100%);
+            color: #1a1d24;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        [data-theme="dark"] .preview-content .text-highlight {
+            background: linear-gradient(120deg, #f9a825 0%, #fbc02d 100%);
+            color: #1a1d24;
+        }
+
         /* Checkboxes */
         .preview-content input[type="checkbox"] {
             margin-right: 8px;
@@ -1575,6 +1588,8 @@ theme: ${state.theme}
                 const exists = headingExists(linkText);
                 return `<span class="wikilink ${exists ? '' : 'broken'}" data-target="${escapeHtml(linkText)}">${escapeHtml(linkText)}</span>`;
             });
+            // Parse ==highlight==
+            content = content.replace(/==([^=]+)==/g, '<span class="text-highlight">$1</span>');
             // Parse tags
             content = content.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, '<span class="tag-highlight">#$1</span>');
             marked.setOptions({ breaks: true, gfm: true });
