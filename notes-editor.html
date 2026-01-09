@@ -255,6 +255,36 @@
             font-size: 10px;
         }
 
+        /* Mobile View Toggle in Toolbar */
+        .mobile-view-toggle {
+            display: none;
+            align-items: center;
+            gap: 2px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 2px;
+        }
+
+        .view-toggle-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .view-toggle-btn.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px var(--shadow);
+            font-size: 10px;
+        }
+
         /* ========== Quick Note ========== */
         .quick-note-container {
             display: flex;
@@ -898,11 +928,16 @@
 
             .toolbar-title {
                 display: block;
+                flex: 1;
             }
 
             .file-name,
             .shortcuts-toolbar {
                 display: none;
+            }
+
+            .mobile-view-toggle {
+                display: flex;
             }
 
             .outline-panel {
@@ -933,27 +968,7 @@
             }
 
             .mobile-tabs {
-                display: flex;
-                background: var(--bg-secondary);
-                border-bottom: 1px solid var(--border);
-            }
-
-            .mobile-tab {
-                flex: 1;
-                padding: 10px;
-                text-align: center;
-                font-size: var(--font-size-sm);
-                font-weight: 500;
-                color: var(--text-secondary);
-                border: none;
-                background: transparent;
-                border-bottom: 2px solid transparent;
-                font-family: var(--font-sans);
-            }
-
-            .mobile-tab.active {
-                color: var(--accent);
-                border-bottom-color: var(--accent);
+                display: none;
             }
 
             .editor-pane,
@@ -974,6 +989,15 @@
             .preview-content {
                 padding: 24px 20px;
             }
+
+            .line-numbers {
+                width: 40px;
+                padding: 16px 6px;
+            }
+
+            .editor-textarea {
+                padding: 16px 12px;
+            }
         }
 
         @media (min-width: 769px) {
@@ -984,6 +1008,257 @@
             .outline-overlay {
                 display: none !important;
             }
+        }
+
+        /* ========== Focus Mode ========== */
+        .focus-mode .toolbar,
+        .focus-mode .quick-note-container,
+        .focus-mode .outline-panel,
+        .focus-mode .pane-header,
+        .focus-mode .line-numbers {
+            display: none !important;
+        }
+
+        .focus-mode .editor-pane {
+            border: none;
+        }
+
+        .focus-mode .editor-textarea {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            font-size: var(--font-size-md);
+        }
+
+        .focus-mode .preview-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .focus-exit-btn {
+            display: none;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .focus-exit-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .focus-mode .focus-exit-btn {
+            display: block;
+        }
+
+        /* ========== Wikilink Styling ========== */
+        .preview-content .wikilink {
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 1px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+
+        .preview-content .wikilink:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .preview-content .wikilink.broken {
+            color: var(--error);
+            background: rgba(229, 57, 53, 0.1);
+        }
+
+        /* ========== Favorites/Pin ========== */
+        .favorites-section {
+            padding: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .favorites-header {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 6px 8px;
+        }
+
+        .favorite-item {
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s;
+            margin: 2px 0;
+        }
+
+        .favorite-item:hover {
+            background: var(--accent-light);
+        }
+
+        .pin-btn {
+            opacity: 0;
+            padding: 2px 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            transition: opacity 0.15s;
+            margin-left: auto;
+        }
+
+        .outline-item:hover .pin-btn,
+        .date-header:hover .pin-btn {
+            opacity: 0.6;
+        }
+
+        .pin-btn:hover {
+            opacity: 1 !important;
+        }
+
+        .pin-btn.pinned {
+            opacity: 1;
+            color: var(--warning);
+        }
+
+        /* ========== Command Palette ========== */
+        .palette-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(4px);
+        }
+
+        .palette-overlay.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .palette-modal {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px var(--shadow-lg);
+            width: 90%;
+            max-width: 550px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .palette-input-container {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            gap: 10px;
+        }
+
+        .palette-input-container span {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .palette-input {
+            flex: 1;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: var(--font-size-md);
+            background: transparent;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .palette-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .palette-results {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .palette-section {
+            padding: 8px 12px 4px;
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .palette-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.1s;
+        }
+
+        .palette-item:hover,
+        .palette-item.selected {
+            background: var(--bg-secondary);
+        }
+
+        .palette-item-icon {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .palette-item-text {
+            flex: 1;
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+        }
+
+        .palette-item-hint {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+
+        .palette-item mark {
+            background: var(--warning);
+            color: white;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .palette-empty {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: var(--font-size-sm);
+        }
+
+        .palette-footer {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
         }
     </style>
 </head>
@@ -1004,7 +1279,13 @@
                 <span class="unsaved-indicator" id="unsavedIndicator"></span>
             </div>
             <div class="toolbar-right">
-                <div class="shortcuts-toolbar"><kbd>⌘S</kbd> Kaydet <kbd>⌘F</kbd> Ara <kbd>⌘N</kbd> Not</div>
+                <div class="mobile-view-toggle">
+                    <button class="view-toggle-btn active" id="editorToggle" onclick="switchTab('editor')">✏️</button>
+                    <button class="view-toggle-btn" id="previewToggle" onclick="switchTab('preview')">👁️</button>
+                </div>
+                <div class="shortcuts-toolbar"><kbd>⌘S</kbd> Kaydet <kbd>⌘F</kbd> Ara</div>
+                <button class="btn btn-icon btn-secondary" onclick="toggleFocusMode()"
+                    title="Focus Mode (F11)"><span>🎯</span></button>
                 <button class="btn btn-icon btn-secondary" onclick="openSearch()"
                     title="Ara (Ctrl+F)"><span>🔍</span></button>
                 <button class="btn btn-icon btn-secondary" onclick="toggleTheme()"
@@ -1021,6 +1302,10 @@
             <div class="outline-overlay" id="outlineOverlay" onclick="toggleOutline()"></div>
             <aside class="outline-panel" id="outlinePanel">
                 <div class="outline-header">📑 Outline</div>
+                <div class="favorites-section" id="favoritesSection" style="display:none">
+                    <div class="favorites-header">⭐ Favoriler</div>
+                    <div id="favoritesList"></div>
+                </div>
                 <div class="outline-list" id="outlineList"></div>
                 <div class="tags-section" id="tagsSection">
                     <div class="tags-header">🏷️ Tags</div>
@@ -1046,6 +1331,7 @@
                 </div>
             </div>
         </main>
+        <button class="focus-exit-btn" onclick="toggleFocusMode()">Esc Focus Mode'dan Çık</button>
     </div>
     <div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
         <div class="search-modal">
@@ -1054,6 +1340,21 @@
             <div class="search-results" id="searchResults"></div>
             <div class="search-footer"><span id="searchCount">0 sonuç</span><span>↑↓ gezin · Enter git · Esc
                     kapat</span></div>
+        </div>
+    </div>
+    <!-- Command Palette -->
+    <div class="palette-overlay" id="paletteOverlay" onclick="if(event.target===this)closePalette()">
+        <div class="palette-modal">
+            <div class="palette-input-container">
+                <span>⌘</span>
+                <input type="text" class="palette-input" id="paletteInput" placeholder="Başlığa git veya komut ara..."
+                    oninput="updatePalette()" onkeydown="handlePaletteKey(event)">
+            </div>
+            <div class="palette-results" id="paletteResults"></div>
+            <div class="palette-footer">
+                <span>↑↓ gezin · Enter seç · Esc kapat</span>
+                <span>Ctrl+P</span>
+            </div>
         </div>
     </div>
     <div class="toast-container" id="toastContainer"></div>
@@ -1069,16 +1370,21 @@
         </div>
     </div>
     <script>
-        const state = { content: '', fileHandle: null, fileName: null, hasUnsavedChanges: false, theme: 'light', searchResults: [], selectedSearchIndex: -1, activeTag: null, expandedDates: {}, saveTimeout: null };
+        const state = { content: '', fileHandle: null, fileName: null, hasUnsavedChanges: false, theme: 'light', searchResults: [], selectedSearchIndex: -1, activeTag: null, expandedDates: {}, favorites: [], focusMode: false, saveTimeout: null, paletteItems: [], paletteSelectedIndex: 0 };
         const STORAGE = { CONTENT: 'md-editor-content', THEME: 'md-editor-theme', FILE_NAME: 'md-editor-file-name', EXPANDED: 'md-editor-expanded' };
 
-        const DEFAULT_CONTENT = `## 📥 Inbox
+        const DEFAULT_CONTENT = `---
+favorites: []
+theme: light
+---
+
+## 📥 Inbox
 - [${formatDate(new Date())}] İlk notunuz burada
 
 ## 09.01.26
 ### Günlük Notlar
 - Örnek not içeriği #örnek
-- Başka bir not #tag
+- [[Welcome]] sayfasına bakın - bu bir wikilink!
 
 ## Welcome
 Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
@@ -1087,7 +1393,10 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
 - Hızlı not ekleme
 - Tarih bazlı gruplama (DD.MM.YY formatı)
 - Tag sistemi #etiket
-- Obsidian/Bear kalitesinde preview
+- Wikilink desteği [[Inbox]]
+- Focus mode ile odaklanma 🎯
+- Favori başlıkları pinleme ⭐
+- Ayarlar YAML frontmatter ile dosyada saklanır 📦
 `;
 
         const $ = id => document.getElementById(id);
@@ -1097,45 +1406,218 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
         const fileName = $('fileName'), unsavedIndicator = $('unsavedIndicator'), themeToggle = $('themeToggle');
         const welcomeOverlay = $('welcomeOverlay'), outlinePanel = $('outlinePanel'), outlineOverlay = $('outlineOverlay');
 
+        // ========== YAML Frontmatter Functions ==========
+        function parseFrontmatter(content) {
+            const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
+            if (!match) return { frontmatter: {}, body: content };
+
+            const yamlStr = match[1];
+            const body = content.slice(match[0].length);
+            const frontmatter = {};
+
+            // Simple YAML parser for our needs
+            yamlStr.split('\n').forEach(line => {
+                const colonIdx = line.indexOf(':');
+                if (colonIdx === -1) return;
+                const key = line.slice(0, colonIdx).trim();
+                let value = line.slice(colonIdx + 1).trim();
+
+                // Parse arrays like [item1, item2] or []
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    const inner = value.slice(1, -1).trim();
+                    if (inner === '') {
+                        frontmatter[key] = [];
+                    } else {
+                        frontmatter[key] = inner.split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+                    }
+                } else {
+                    frontmatter[key] = value.replace(/^["']|["']$/g, '');
+                }
+            });
+
+            return { frontmatter, body };
+        }
+
+        function generateFrontmatter() {
+            const favArr = state.favorites.length > 0
+                ? `[${state.favorites.map(f => `"${f}"`).join(', ')}]`
+                : '[]';
+            return `---
+favorites: ${favArr}
+theme: ${state.theme}
+---
+
+`;
+        }
+
+        function updateFrontmatterInContent() {
+            const { body } = parseFrontmatter(editor.value);
+            const newContent = generateFrontmatter() + body;
+            editor.value = newContent;
+            state.content = newContent;
+        }
+
         function init() {
-            loadTheme();
             loadExpandedState();
             loadContent();
             editor.addEventListener('input', debounce(handleInput, 300));
             editor.addEventListener('scroll', () => lineNumbers.scrollTop = editor.scrollTop);
             editor.addEventListener('keyup', updateCursor);
             document.addEventListener('keydown', handleShortcuts);
+            preview.addEventListener('click', handlePreviewClick);
             window.addEventListener('beforeunload', e => { if (state.hasUnsavedChanges) { e.preventDefault(); e.returnValue = ''; } });
             if (!localStorage.getItem(STORAGE.CONTENT)) welcomeOverlay.classList.add('show');
         }
 
-        function loadTheme() { setTheme(localStorage.getItem(STORAGE.THEME) || 'light'); }
         function loadExpandedState() { try { state.expandedDates = JSON.parse(localStorage.getItem(STORAGE.EXPANDED)) || {}; } catch { state.expandedDates = {}; } }
         function saveExpandedState() { localStorage.setItem(STORAGE.EXPANDED, JSON.stringify(state.expandedDates)); }
 
         function loadContent() {
             const saved = localStorage.getItem(STORAGE.CONTENT);
             const savedName = localStorage.getItem(STORAGE.FILE_NAME);
-            if (saved) { state.content = saved; editor.value = saved; }
+            if (saved) {
+                state.content = saved;
+                editor.value = saved;
+                // Parse frontmatter to load settings
+                const { frontmatter } = parseFrontmatter(saved);
+                if (frontmatter.favorites) state.favorites = frontmatter.favorites;
+                if (frontmatter.theme) setTheme(frontmatter.theme);
+            } else {
+                setTheme('light');
+            }
             if (savedName) { state.fileName = savedName; fileName.textContent = savedName; }
             updateAll();
         }
 
+        function saveFrontmatterSettings() {
+            updateFrontmatterInContent();
+            state.hasUnsavedChanges = true;
+            unsavedIndicator.classList.add('show');
+            localStorage.setItem(STORAGE.CONTENT, editor.value);
+        }
+
         function handleInput() {
+            // Process slash commands
+            processSlashCommands();
+
             state.content = editor.value;
             state.hasUnsavedChanges = true;
             unsavedIndicator.classList.add('show');
+
+            // Re-parse frontmatter on input to keep state in sync
+            const { frontmatter } = parseFrontmatter(editor.value);
+            if (frontmatter.favorites) state.favorites = frontmatter.favorites;
+            if (frontmatter.theme && frontmatter.theme !== state.theme) setTheme(frontmatter.theme);
+
             updateAll();
             if (state.saveTimeout) clearTimeout(state.saveTimeout);
             state.saveTimeout = setTimeout(() => localStorage.setItem(STORAGE.CONTENT, editor.value), 1000);
         }
 
+        function processSlashCommands() {
+            const cursorPos = editor.selectionStart;
+            const text = editor.value;
+
+            // Find the word before cursor
+            const beforeCursor = text.slice(0, cursorPos);
+            const match = beforeCursor.match(/\/(\w+)\s$/);
+
+            if (!match) return;
+
+            const command = match[1].toLowerCase();
+            const commandStart = cursorPos - match[0].length;
+
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = String(now.getFullYear()).slice(-2);
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            let replacement = null;
+
+            switch (command) {
+                case 'today':
+                case 'bugun':
+                case 'bugün':
+                    replacement = `## ${day}.${month}.${year}\n`;
+                    break;
+                case 'now':
+                case 'simdi':
+                case 'şimdi':
+                    replacement = `- [${day}.${month}.${year} ${hours}:${minutes}] `;
+                    break;
+                case 'time':
+                case 'saat':
+                    replacement = `${hours}:${minutes}`;
+                    break;
+                case 'date':
+                case 'tarih':
+                    replacement = `${day}.${month}.${year}`;
+                    break;
+            }
+
+            if (replacement) {
+                editor.value = text.slice(0, commandStart) + replacement + text.slice(cursorPos);
+                editor.selectionStart = editor.selectionEnd = commandStart + replacement.length;
+                showToast(`/${command} → ${replacement.trim()}`, 'success');
+            }
+        }
+
         function updateAll() { updatePreview(); updateOutline(); updateTags(); updateLineNumbers(); }
 
         function updatePreview() {
-            let content = editor.value.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, '<span class="tag-highlight">#$1</span>');
+            // Get body without frontmatter for preview
+            const { body } = parseFrontmatter(editor.value);
+            let content = body;
+            // Parse wikilinks [[text]]
+            content = content.replace(/\[\[([^\]]+)\]\]/g, (match, linkText) => {
+                const exists = headingExists(linkText);
+                return `<span class="wikilink ${exists ? '' : 'broken'}" data-target="${escapeHtml(linkText)}">${escapeHtml(linkText)}</span>`;
+            });
+            // Parse tags
+            content = content.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, '<span class="tag-highlight">#$1</span>');
             marked.setOptions({ breaks: true, gfm: true });
             preview.innerHTML = marked.parse(content);
+        }
+
+        function headingExists(text) {
+            const lines = editor.value.split('\n');
+            const normalizedTarget = text.toLowerCase().trim();
+            return lines.some(line => {
+                const match = line.match(/^#{1,6}\s+(.+)$/);
+                if (match) {
+                    // Check heading text, also check with emoji prefix removed
+                    const headingText = match[1].toLowerCase().trim();
+                    const headingClean = headingText.replace(/^[📥📅⭐🏷️📑✨🎯]+\s*/, '');
+                    return headingText.includes(normalizedTarget) || headingClean.includes(normalizedTarget);
+                }
+                return false;
+            });
+        }
+
+        function handlePreviewClick(e) {
+            if (e.target.classList.contains('wikilink')) {
+                const target = e.target.dataset.target;
+                scrollToHeading(target);
+            }
+        }
+
+        function scrollToHeading(text) {
+            const lines = editor.value.split('\n');
+            const normalizedTarget = text.toLowerCase().trim();
+            for (let i = 0; i < lines.length; i++) {
+                const match = lines[i].match(/^#{1,6}\s+(.+)$/);
+                if (match) {
+                    const headingText = match[1].toLowerCase().trim();
+                    const headingClean = headingText.replace(/^[📥📅⭐🏷️📑✨🎯]+\s*/, '');
+                    if (headingText.includes(normalizedTarget) || headingClean.includes(normalizedTarget)) {
+                        scrollToLine(i + 1);
+                        return;
+                    }
+                }
+            }
+            showToast('Başlık bulunamadı: ' + text, 'error');
         }
 
         function updateLineNumbers() {
@@ -1179,6 +1661,7 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
             const dateRegex = /^##\s+(\d{2}\.\d{2}\.\d{2,4}|\d{4}-\d{2}-\d{2})\s*$/;
             const headingRegex = /^(#{2,3})\s+(.+)$/;
             const groups = [];
+            const allHeadings = [];
             let currentGroup = null;
 
             lines.forEach((line, idx) => {
@@ -1187,15 +1670,20 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
                     const parsed = parseDate(dateMatch[1]);
                     currentGroup = { date: dateMatch[1], parsed, line: idx + 1, children: [], isToday: isToday(parsed) };
                     groups.push(currentGroup);
+                    allHeadings.push({ text: dateMatch[1], line: idx + 1, isDate: true });
                 } else {
                     const headingMatch = line.match(headingRegex);
                     if (headingMatch) {
                         const item = { level: headingMatch[1].length, text: headingMatch[2], line: idx + 1 };
+                        allHeadings.push({ text: item.text, line: idx + 1, level: item.level });
                         if (currentGroup) currentGroup.children.push(item);
                         else groups.push({ date: null, text: item.text, line: idx + 1, level: item.level, children: [] });
                     }
                 }
             });
+
+            // Update favorites section
+            updateFavorites(allHeadings);
 
             if (groups.length === 0) {
                 outlineList.innerHTML = '<div class="outline-item" style="color:var(--text-muted)">Başlık yok</div>';
@@ -1206,30 +1694,87 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
                 if (g.date) {
                     const isOpen = state.expandedDates[g.date] !== false;
                     const label = g.isToday ? `📅 ${g.date} (bugün)` : `📅 ${g.date}`;
+                    const escapedDate = g.date.replace(/'/g, "\\'");
+                    const isPinned = state.favorites.includes(g.date);
                     return `<div class="date-group">
-                <div class="date-header ${g.isToday ? 'today' : ''}" onclick="toggleDate('${g.date}', ${g.line})">
+                <div class="date-header ${g.isToday ? 'today' : ''}" onclick="toggleDate('${escapedDate}', ${g.line}, event)">
                     <span class="date-chevron ${isOpen ? 'open' : ''}">▸</span>
                     <span>${label}</span>
+                    <button class="pin-btn ${isPinned ? 'pinned' : ''}" onclick="toggleFavorite('${escapedDate}', event)" title="Favorilere ekle">⭐</button>
                 </div>
                 <div class="date-children ${isOpen ? 'open' : ''}" id="date-${g.date.replace(/\./g, '-')}">
-                    ${g.children.map(c => `<div class="outline-item h${c.level}" onclick="scrollToLine(${c.line})"><span class="outline-item-text">${escapeHtml(c.text)}</span></div>`).join('')}
+                    ${g.children.map(c => {
+                        const isPinnedChild = state.favorites.includes(c.text);
+                        return `<div class="outline-item h${c.level}" onclick="scrollToLine(${c.line})">
+                            <span class="outline-item-text">${escapeHtml(c.text)}</span>
+                            <button class="pin-btn ${isPinnedChild ? 'pinned' : ''}" onclick="toggleFavorite('${escapeHtml(c.text).replace(/'/g, "\\'")}', event)" title="Favorilere ekle">⭐</button>
+                        </div>`;
+                    }).join('')}
                 </div>
             </div>`;
                 } else {
-                    return `<div class="outline-item h${g.level}" onclick="scrollToLine(${g.line})"><span class="outline-item-text">${escapeHtml(g.text)}</span></div>`;
+                    const isPinned = state.favorites.includes(g.text);
+                    return `<div class="outline-item h${g.level}" onclick="scrollToLine(${g.line})">
+                        <span class="outline-item-text">${escapeHtml(g.text)}</span>
+                        <button class="pin-btn ${isPinned ? 'pinned' : ''}" onclick="toggleFavorite('${escapeHtml(g.text).replace(/'/g, "\\'")}', event)" title="Favorilere ekle">⭐</button>
+                    </div>`;
                 }
             }).join('');
         }
 
-        function toggleDate(date, line) {
+        function updateFavorites(allHeadings) {
+            const favSection = $('favoritesSection');
+            const favList = $('favoritesList');
+
+            // Filter favorites that still exist in headings
+            const validFavorites = state.favorites.filter(fav =>
+                allHeadings.some(h => h.text === fav)
+            );
+
+            if (validFavorites.length !== state.favorites.length) {
+                state.favorites = validFavorites;
+                saveFavorites();
+            }
+
+            if (validFavorites.length === 0) {
+                favSection.style.display = 'none';
+                return;
+            }
+
+            favSection.style.display = 'block';
+            favList.innerHTML = validFavorites.map(fav => {
+                const heading = allHeadings.find(h => h.text === fav);
+                if (!heading) return '';
+                return `<div class="favorite-item" onclick="scrollToLine(${heading.line})">
+                    ⭐ ${escapeHtml(fav)}
+                </div>`;
+            }).join('');
+        }
+
+        function toggleFavorite(text, event) {
+            event.stopPropagation();
+            const idx = state.favorites.indexOf(text);
+            if (idx === -1) {
+                state.favorites.push(text);
+                showToast('Favorilere eklendi ⭐', 'success');
+            } else {
+                state.favorites.splice(idx, 1);
+                showToast('Favorilerden çıkarıldı', 'info');
+            }
+            saveFrontmatterSettings();
+            updateOutline();
+        }
+
+        function toggleDate(date, line, event) {
+            if (event) event.stopPropagation();
             const isOpen = state.expandedDates[date] !== false;
             state.expandedDates[date] = !isOpen;
             saveExpandedState();
             updateOutline();
-            if (!isOpen) scrollToLine(line);
+            // Don't scroll when toggling - just expand/collapse
         }
 
-        function scrollToLine(lineNum) {
+        function scrollToLine(lineNum, closeOutlineOnMobile = true) {
             const lines = editor.value.split('\n');
             let charIdx = 0;
             for (let i = 0; i < lineNum - 1; i++) charIdx += lines[i].length + 1;
@@ -1237,7 +1782,7 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
             editor.setSelectionRange(charIdx, charIdx);
             const lineHeight = 24; // approximate
             editor.scrollTop = (lineNum - 5) * lineHeight;
-            if (window.innerWidth <= 768) toggleOutline();
+            if (closeOutlineOnMobile && window.innerWidth <= 768) toggleOutline();
             updateCursor();
         }
 
@@ -1364,11 +1909,24 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
 
         function goSearch(i) { const r = state.searchResults[i]; if (r) { closeSearch(); scrollToLine(r.line); } }
 
-        function toggleTheme() { const t = state.theme === 'light' ? 'dark' : 'light'; setTheme(t); localStorage.setItem(STORAGE.THEME, t); }
+        function toggleTheme() { const t = state.theme === 'light' ? 'dark' : 'light'; setTheme(t); saveFrontmatterSettings(); }
         function setTheme(t) { state.theme = t; document.documentElement.setAttribute('data-theme', t); themeToggle.querySelector('span').textContent = t === 'light' ? '🌙' : '☀️'; }
 
+        function toggleFocusMode() {
+            state.focusMode = !state.focusMode;
+            document.querySelector('.app-container').classList.toggle('focus-mode', state.focusMode);
+            if (state.focusMode) {
+                showToast('Focus Mode aktif - Esc ile çık', 'info');
+            }
+        }
+
         function toggleOutline() { outlinePanel.classList.toggle('open'); outlineOverlay.classList.toggle('show'); }
-        function switchTab(t) { document.querySelectorAll('.mobile-tab').forEach((el, i) => el.classList.toggle('active', i === (t === 'editor' ? 0 : 1))); $('editorPane').classList.toggle('active', t === 'editor'); $('previewPane').classList.toggle('active', t === 'preview'); }
+        function switchTab(t) {
+            document.querySelectorAll('.mobile-tab').forEach((el, i) => el.classList.toggle('active', i === (t === 'editor' ? 0 : 1)));
+            document.querySelectorAll('.view-toggle-btn').forEach((el, i) => el.classList.toggle('active', i === (t === 'editor' ? 0 : 1)));
+            $('editorPane').classList.toggle('active', t === 'editor');
+            $('previewPane').classList.toggle('active', t === 'preview');
+        }
 
         function handleShortcuts(e) {
             const ctrl = navigator.platform.includes('Mac') ? e.metaKey : e.ctrlKey;
@@ -1376,11 +1934,18 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
                 if (e.key === 's') { e.preventDefault(); saveFile(); }
                 else if (e.key === 'o') { e.preventDefault(); openFile(); }
                 else if (e.key === 'f') { e.preventDefault(); openSearch(); }
+                else if (e.key === 'p') { e.preventDefault(); openPalette(); }
                 else if (e.key === 'n') { e.preventDefault(); quickNoteInput.focus(); }
                 else if (e.key === 'b' && document.activeElement === editor) { e.preventDefault(); wrap('**', '**'); }
                 else if (e.key === 'i' && document.activeElement === editor) { e.preventDefault(); wrap('*', '*'); }
             }
-            if (e.key === 'Escape') { closeSearch(); closeWelcome(); }
+            if (e.key === 'Escape') {
+                if (state.focusMode) toggleFocusMode();
+                closePalette();
+                closeSearch();
+                closeWelcome();
+            }
+            if (e.key === 'F11') { e.preventDefault(); toggleFocusMode(); }
             if (e.key === 'Tab' && document.activeElement === editor) { e.preventDefault(); const s = editor.selectionStart; editor.value = editor.value.slice(0, s) + '  ' + editor.value.slice(editor.selectionEnd); editor.selectionStart = editor.selectionEnd = s + 2; handleInput(); }
         }
 
@@ -1413,6 +1978,159 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
         function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
         function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
         function debounce(fn, wait) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); }; }
+
+        // ========== Command Palette ==========
+        const paletteOverlay = $('paletteOverlay');
+        const paletteInput = $('paletteInput');
+        const paletteResults = $('paletteResults');
+
+        const COMMANDS = [
+            { icon: '💾', text: 'Kaydet', hint: 'Ctrl+S', action: () => saveFile() },
+            { icon: '📂', text: 'Dosya Aç', hint: 'Ctrl+O', action: () => openFile() },
+            { icon: '⬇️', text: 'Export', hint: '', action: () => exportFile() },
+            { icon: '🔍', text: 'Ara', hint: 'Ctrl+F', action: () => openSearch() },
+            { icon: '🎯', text: 'Focus Mode', hint: 'F11', action: () => toggleFocusMode() },
+            { icon: '🌙', text: 'Tema Değiştir', hint: '', action: () => toggleTheme() },
+            { icon: '✨', text: 'Yeni Başla', hint: '', action: () => { closePalette(); startFresh(); } },
+        ];
+
+        function openPalette() {
+            paletteOverlay.classList.add('show');
+            paletteInput.value = '';
+            paletteInput.focus();
+            state.paletteSelectedIndex = 0;
+            updatePalette();
+        }
+
+        function closePalette() {
+            paletteOverlay.classList.remove('show');
+            paletteInput.value = '';
+        }
+
+        function updatePalette() {
+            const query = paletteInput.value.toLowerCase().trim();
+            const items = [];
+
+            // Get all headings
+            const lines = editor.value.split('\n');
+            const headings = [];
+            lines.forEach((line, idx) => {
+                const match = line.match(/^(#{1,6})\s+(.+)$/);
+                if (match) {
+                    headings.push({
+                        type: 'heading',
+                        icon: match[1].length <= 2 ? '📑' : '📄',
+                        text: match[2],
+                        line: idx + 1,
+                        level: match[1].length
+                    });
+                }
+            });
+
+            // Filter and score items
+            const matchedHeadings = headings.filter(h => fuzzyMatch(h.text, query)).slice(0, 8);
+            const matchedCommands = COMMANDS.filter(c => fuzzyMatch(c.text, query));
+
+            // Build items list
+            if (matchedHeadings.length > 0) {
+                items.push({ type: 'section', text: 'Başlıklar' });
+                matchedHeadings.forEach(h => items.push(h));
+            }
+            if (matchedCommands.length > 0) {
+                items.push({ type: 'section', text: 'Komutlar' });
+                matchedCommands.forEach(c => items.push({ ...c, type: 'command' }));
+            }
+
+            state.paletteItems = items.filter(i => i.type !== 'section');
+            state.paletteSelectedIndex = Math.min(state.paletteSelectedIndex, Math.max(0, state.paletteItems.length - 1));
+
+            renderPalette(items, query);
+        }
+
+        function fuzzyMatch(text, query) {
+            if (!query) return true;
+            const t = text.toLowerCase();
+            const q = query.toLowerCase();
+            let qi = 0;
+            for (let i = 0; i < t.length && qi < q.length; i++) {
+                if (t[i] === q[qi]) qi++;
+            }
+            return qi === q.length;
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return escapeHtml(text);
+            const t = text.toLowerCase();
+            const q = query.toLowerCase();
+            let result = '';
+            let qi = 0;
+            for (let i = 0; i < text.length; i++) {
+                if (qi < q.length && t[i] === q[qi]) {
+                    result += `<mark>${escapeHtml(text[i])}</mark>`;
+                    qi++;
+                } else {
+                    result += escapeHtml(text[i]);
+                }
+            }
+            return result;
+        }
+
+        function renderPalette(items, query) {
+            if (items.length === 0) {
+                paletteResults.innerHTML = '<div class="palette-empty">Sonuç bulunamadı</div>';
+                return;
+            }
+
+            let selectableIndex = 0;
+            paletteResults.innerHTML = items.map(item => {
+                if (item.type === 'section') {
+                    return `<div class="palette-section">${item.text}</div>`;
+                }
+                const isSelected = state.paletteItems[state.paletteSelectedIndex] === item;
+                const html = `<div class="palette-item ${isSelected ? 'selected' : ''}" data-index="${selectableIndex}" onclick="executePaletteItem(${selectableIndex})">
+                    <span class="palette-item-icon">${item.icon}</span>
+                    <span class="palette-item-text">${highlightMatch(item.text, query)}</span>
+                    ${item.hint ? `<span class="palette-item-hint">${item.hint}</span>` : ''}
+                </div>`;
+                selectableIndex++;
+                return html;
+            }).join('');
+        }
+
+        function handlePaletteKey(e) {
+            const items = state.paletteItems;
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                state.paletteSelectedIndex = Math.min(state.paletteSelectedIndex + 1, items.length - 1);
+                updatePaletteSelection();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                state.paletteSelectedIndex = Math.max(state.paletteSelectedIndex - 1, 0);
+                updatePaletteSelection();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                executePaletteItem(state.paletteSelectedIndex);
+            } else if (e.key === 'Escape') {
+                closePalette();
+            }
+        }
+
+        function updatePaletteSelection() {
+            const items = paletteResults.querySelectorAll('.palette-item');
+            items.forEach((el, i) => el.classList.toggle('selected', i === state.paletteSelectedIndex));
+            items[state.paletteSelectedIndex]?.scrollIntoView({ block: 'nearest' });
+        }
+
+        function executePaletteItem(index) {
+            const item = state.paletteItems[index];
+            if (!item) return;
+            closePalette();
+            if (item.type === 'heading') {
+                scrollToLine(item.line);
+            } else if (item.action) {
+                item.action();
+            }
+        }
 
         init();
     </script>
