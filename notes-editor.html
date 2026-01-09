@@ -282,7 +282,7 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             box-shadow: 0 1px 3px var(--shadow);
-            font-size: 10px;
+            /* font-size kaldırıldı - tutarlılık için parent'tan miras almalı */
         }
 
         /* ========== Quick Note ========== */
@@ -549,6 +549,7 @@
             color: var(--text-primary);
             outline: none;
             tab-size: 2;
+            overflow-y: auto; /* Scroll Fix: Textarea'nın kendi scroll'u olmalı */
         }
 
         .editor-textarea::placeholder {
@@ -895,6 +896,10 @@
 
         .toast.error {
             border-left: 4px solid var(--error);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--accent);
         }
 
         /* ========== Welcome Modal ========== */
@@ -1446,6 +1451,11 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
 
         // ========== YAML Frontmatter Functions ==========
         function parseFrontmatter(content) {
+            // Güvenlik: null/undefined kontrolü
+            if (!content || typeof content !== 'string') {
+                return { frontmatter: {}, body: content || '' };
+            }
+
             const match = content.match(/^---\n([\s\S]*?)\n---\n?/);
             if (!match) return { frontmatter: {}, body: content };
 
@@ -1453,25 +1463,38 @@ Bu editör tek bir .md dosyasında tüm notlarınızı tutmanızı sağlar.
             const body = content.slice(match[0].length);
             const frontmatter = {};
 
-            // Simple YAML parser for our needs
-            yamlStr.split('\n').forEach(line => {
-                const colonIdx = line.indexOf(':');
-                if (colonIdx === -1) return;
-                const key = line.slice(0, colonIdx).trim();
-                let value = line.slice(colonIdx + 1).trim();
+            try {
+                // Simple YAML parser for our needs
+                yamlStr.split('\n').forEach(line => {
+                    // Boş satırları atla
+                    if (!line.trim()) return;
 
-                // Parse arrays like [item1, item2] or []
-                if (value.startsWith('[') && value.endsWith(']')) {
-                    const inner = value.slice(1, -1).trim();
-                    if (inner === '') {
-                        frontmatter[key] = [];
+                    const colonIdx = line.indexOf(':');
+                    if (colonIdx === -1) return;
+
+                    const key = line.slice(0, colonIdx).trim();
+                    // Geçersiz key kontrolü
+                    if (!key || !/^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(key)) return;
+
+                    let value = line.slice(colonIdx + 1).trim();
+
+                    // Parse arrays like [item1, item2] or []
+                    if (value.startsWith('[') && value.endsWith(']')) {
+                        const inner = value.slice(1, -1).trim();
+                        if (inner === '') {
+                            frontmatter[key] = [];
+                        } else {
+                            frontmatter[key] = inner.split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+                        }
                     } else {
-                        frontmatter[key] = inner.split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
+                        frontmatter[key] = value.replace(/^["']|["']$/g, '');
                     }
-                } else {
-                    frontmatter[key] = value.replace(/^["']|["']$/g, '');
-                }
-            });
+                });
+            } catch (e) {
+                // Parse hatası durumunda boş frontmatter döndür
+                console.warn('YAML parse hatası:', e);
+                return { frontmatter: {}, body: content };
+            }
 
             return { frontmatter, body };
         }
@@ -1495,25 +1518,54 @@ theme: ${state.theme}
             state.content = newContent;
         }
 
+        // Throttle helper - scroll sync için
+        function throttle(fn, delay) {
+            let lastCall = 0;
+            let timeoutId = null;
+            return function(...args) {
+                const now = Date.now();
+                const remaining = delay - (now - lastCall);
+                if (remaining <= 0) {
+                    if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+                    lastCall = now;
+                    fn.apply(this, args);
+                } else if (!timeoutId) {
+                    timeoutId = setTimeout(() => {
+                        lastCall = Date.now();
+                        timeoutId = null;
+                        fn.apply(this, args);
+                    }, remaining);
+                }
+            };
+        }
+
         function init() {
             loadExpandedState();
             loadContent();
             editor.addEventListener('input', debounce(handleInput, 300));
-            editor.addEventListener('scroll', () => {
-                lineNumbers.scrollTop = editor.scrollTop;
+
+            // Throttled scroll handlers - race condition fix
+            const throttledEditorScroll = throttle(() => {
                 if (!state.isScrolling) {
                     state.isScrolling = true;
                     syncScroll(editor, preview);
-                    setTimeout(() => state.isScrolling = false, 50);
+                    requestAnimationFrame(() => { state.isScrolling = false; });
                 }
-            });
-            preview.addEventListener('scroll', () => {
+            }, 16); // ~60fps
+
+            const throttledPreviewScroll = throttle(() => {
                 if (!state.isScrolling) {
                     state.isScrolling = true;
                     syncScroll(preview, editor);
-                    setTimeout(() => state.isScrolling = false, 50);
+                    requestAnimationFrame(() => { state.isScrolling = false; });
                 }
+            }, 16);
+
+            editor.addEventListener('scroll', () => {
+                lineNumbers.scrollTop = editor.scrollTop;
+                throttledEditorScroll();
             });
+            preview.addEventListener('scroll', throttledPreviewScroll);
             editor.addEventListener('keyup', updateCursor);
             document.addEventListener('keydown', handleShortcuts);
             preview.addEventListener('click', handlePreviewClick);
@@ -1622,15 +1674,19 @@ theme: ${state.theme}
             // Get body without frontmatter for preview
             const { body } = parseFrontmatter(editor.value);
             let content = body;
-            // Parse wikilinks [[text]]
+            // Parse wikilinks [[text]] - XSS Safe: escapeHtml kullanılıyor
             content = content.replace(/\[\[([^\]]+)\]\]/g, (match, linkText) => {
                 const exists = headingExists(linkText);
                 return `<span class="wikilink ${exists ? '' : 'broken'}" data-target="${escapeHtml(linkText)}">${escapeHtml(linkText)}</span>`;
             });
-            // Parse ==highlight==
-            content = content.replace(/==([^=]+)==/g, '<span class="text-highlight">$1</span>');
-            // Parse tags
-            content = content.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, '<span class="tag-highlight">#$1</span>');
+            // Parse ==highlight== - XSS Fix: içeriği escape et
+            content = content.replace(/==([^=]+)==/g, (match, text) => {
+                return `<span class="text-highlight">${escapeHtml(text)}</span>`;
+            });
+            // Parse tags - XSS Fix: tag içeriğini escape et
+            content = content.replace(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g, (match, tag) => {
+                return `<span class="tag-highlight">#${escapeHtml(tag)}</span>`;
+            });
             marked.setOptions({ breaks: true, gfm: true });
             preview.innerHTML = marked.parse(content);
         }
@@ -1787,7 +1843,7 @@ theme: ${state.theme}
 
             if (validFavorites.length !== state.favorites.length) {
                 state.favorites = validFavorites;
-                saveFavorites();
+                saveFrontmatterSettings();
             }
 
             if (validFavorites.length === 0) {
@@ -1867,10 +1923,21 @@ theme: ${state.theme}
         }
 
         function updateTags() {
-            const tags = [...new Set(editor.value.match(/#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]+)/g) || [])];
+            // Performans: Maksimum 50 karakter uzunluğunda tag'leri kabul et
+            const tagRegex = /#([a-zA-ZğüşıöçĞÜŞİÖÇ0-9_-]{1,50})/g;
+            const tags = [...new Set(editor.value.match(tagRegex) || [])];
             if (!tags.length) { $('tagsSection').style.display = 'none'; return; }
             $('tagsSection').style.display = 'block';
-            tagsList.innerHTML = tags.map(t => `<div class="tag-item ${state.activeTag === t ? 'active' : ''}" onclick="filterTag('${t}')">${t}</div>`).join('');
+            // XSS Fix: Tag'leri escape et ve güvenli onclick handler kullan
+            tagsList.innerHTML = tags.map(t => {
+                const escapedTag = escapeHtml(t);
+                const isActive = state.activeTag === t ? 'active' : '';
+                return `<div class="tag-item ${isActive}" data-tag="${escapedTag}">${escapedTag}</div>`;
+            }).join('');
+            // Event delegation ile güvenli click handling
+            tagsList.querySelectorAll('.tag-item').forEach(el => {
+                el.onclick = () => filterTag(el.dataset.tag);
+            });
         }
 
         function filterTag(tag) {
@@ -1948,9 +2015,12 @@ theme: ${state.theme}
         function exportFile() {
             const blob = new Blob([editor.value], { type: 'text/markdown' });
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
+            const url = URL.createObjectURL(blob);
+            a.href = url;
             a.download = state.fileName || 'notes.md';
             a.click();
+            // Memory Leak Fix: Blob URL'i serbest bırak
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
             showToast('İndirildi', 'success');
         }
 
@@ -1969,7 +2039,10 @@ theme: ${state.theme}
             state.selectedSearchIndex = results.length ? 0 : -1;
             searchCount.textContent = `${results.length} sonuç`;
             searchResults.innerHTML = results.map((r, i) => {
-                const hl = r.text.replace(new RegExp(`(${escapeRegex(q)})`, 'gi'), '<mark>$1</mark>');
+                // XSS Fix: Önce escape et, sonra highlight uygula
+                const escaped = escapeHtml(r.text);
+                const escapedQuery = escapeHtml(q);
+                const hl = escaped.replace(new RegExp(`(${escapeRegex(escapedQuery)})`, 'gi'), '<mark>$1</mark>');
                 return `<div class="search-result-item ${i === 0 ? 'selected' : ''}" onclick="goSearch(${i})"><div class="search-result-line">Satır ${r.line}</div><div class="search-result-text">${hl}</div></div>`;
             }).join('') || '<div class="search-result-item" style="color:var(--text-muted)">Sonuç yok</div>';
         }
@@ -2039,7 +2112,10 @@ theme: ${state.theme}
         function showToast(msg, type = 'info') {
             const t = document.createElement('div');
             t.className = `toast ${type}`;
-            t.innerHTML = `<span>${msg}</span>`;
+            // XSS Fix: textContent kullanarak güvenli metin ekleme
+            const span = document.createElement('span');
+            span.textContent = msg;
+            t.appendChild(span);
             $('toastContainer').appendChild(t);
             setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2500);
         }
@@ -2217,15 +2293,15 @@ theme: ${state.theme}
             const pane = paneId === 'editor' ? $('editorPane') : $('previewPane');
             const otherPane = paneId === 'editor' ? $('previewPane') : $('editorPane');
 
-            if (pane.style.display === 'none') {
+            // Fix: getComputedStyle kullanarak gerçek görünürlüğü kontrol et
+            const paneVisible = getComputedStyle(pane).display !== 'none';
+            const otherPaneVisible = getComputedStyle(otherPane).display !== 'none';
+
+            if (!paneVisible) {
                 pane.style.display = 'flex';
-                // If both are open, ensure they split space
-                if (otherPane.style.display !== 'none') {
-                    // Standard flex behavior handles it
-                }
             } else {
                 // Don't close if it's the last open pane
-                if (otherPane.style.display === 'none') {
+                if (!otherPaneVisible) {
                     showToast('En az bir panel açık kalmalı', 'info');
                     return;
                 }
@@ -2238,10 +2314,18 @@ theme: ${state.theme}
         }
 
         function syncScroll(source, target) {
-            // Calculate percentage
-            const percentage = source.scrollTop / (source.scrollHeight - source.clientHeight);
-            // Apply to target
-            target.scrollTop = percentage * (target.scrollHeight - target.clientHeight);
+            // NaN/Infinity Fix: Sıfıra bölme koruması
+            const scrollableHeight = source.scrollHeight - source.clientHeight;
+            if (scrollableHeight <= 0) return; // İçerik scroll gerektirmiyorsa çık
+
+            const percentage = source.scrollTop / scrollableHeight;
+            // NaN ve Infinity kontrolü
+            if (!Number.isFinite(percentage)) return;
+
+            const targetScrollableHeight = target.scrollHeight - target.clientHeight;
+            if (targetScrollableHeight <= 0) return;
+
+            target.scrollTop = percentage * targetScrollableHeight;
         }
 
         init();
