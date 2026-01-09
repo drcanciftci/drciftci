@@ -496,6 +496,23 @@
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 1.1em;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .header-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
         }
 
         /* ========== Editor ========== */
@@ -1028,19 +1045,14 @@
         .focus-mode .quick-note-container,
         .focus-mode .outline-panel,
         .focus-mode .pane-header,
-        .focus-mode .line-numbers {
+        .focus-mode .line-numbers,
+        .focus-mode .editor-pane {
             display: none !important;
         }
 
-        .focus-mode .editor-pane {
-            border: none;
-        }
-
-        .focus-mode .editor-textarea {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            font-size: var(--font-size-md);
+        .focus-mode .preview-pane {
+            display: flex !important;
+            flex: 1;
         }
 
         .focus-mode .preview-content {
@@ -1331,7 +1343,17 @@
                     <button class="mobile-tab" onclick="switchTab('preview')">👁️ Preview</button>
                 </div>
                 <div class="editor-pane active" id="editorPane">
-                    <div class="pane-header"><span>✏️ Editor</span><span id="cursorPosition">Satır 1</span></div>
+                    <div class="pane-header">
+                        <div style="display:flex;gap:10px;align-items:center">
+                            <span>✏️ Editor</span>
+                            <button class="header-btn" onclick="addHighlight()" title="Highlight Text (==)">🖍️
+                                Highlight</button>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:center">
+                            <span id="cursorPosition">Satır 1</span>
+                            <button class="header-btn" onclick="togglePane('editor')" title="Editorü Gizle">✕</button>
+                        </div>
+                    </div>
                     <div class="editor-wrapper">
                         <div class="line-numbers" id="lineNumbers"></div>
                         <textarea class="editor-textarea" id="editor" placeholder="Markdown yazmaya başlayın..."
@@ -1339,7 +1361,10 @@
                     </div>
                 </div>
                 <div class="preview-pane" id="previewPane">
-                    <div class="pane-header"><span>👁️ Preview</span></div>
+                    <div class="pane-header">
+                        <span>👁️ Preview</span>
+                        <button class="header-btn" onclick="togglePane('preview')" title="Preview'u Gizle">✕</button>
+                    </div>
                     <div class="preview-content" id="preview"></div>
                 </div>
             </div>
@@ -1383,7 +1408,7 @@
         </div>
     </div>
     <script>
-        const state = { content: '', fileHandle: null, fileName: null, hasUnsavedChanges: false, theme: 'light', searchResults: [], selectedSearchIndex: -1, activeTag: null, expandedDates: {}, favorites: [], focusMode: false, saveTimeout: null, paletteItems: [], paletteSelectedIndex: 0 };
+        const state = { content: '', fileHandle: null, fileName: null, hasUnsavedChanges: false, theme: 'light', searchResults: [], selectedSearchIndex: -1, activeTag: null, expandedDates: {}, favorites: [], focusMode: false, saveTimeout: null, paletteItems: [], paletteSelectedIndex: 0, isScrolling: false };
         const STORAGE = { CONTENT: 'md-editor-content', THEME: 'md-editor-theme', FILE_NAME: 'md-editor-file-name', EXPANDED: 'md-editor-expanded' };
 
         const DEFAULT_CONTENT = `---
@@ -1474,7 +1499,21 @@ theme: ${state.theme}
             loadExpandedState();
             loadContent();
             editor.addEventListener('input', debounce(handleInput, 300));
-            editor.addEventListener('scroll', () => lineNumbers.scrollTop = editor.scrollTop);
+            editor.addEventListener('scroll', () => {
+                lineNumbers.scrollTop = editor.scrollTop;
+                if (!state.isScrolling) {
+                    state.isScrolling = true;
+                    syncScroll(editor, preview);
+                    setTimeout(() => state.isScrolling = false, 50);
+                }
+            });
+            preview.addEventListener('scroll', () => {
+                if (!state.isScrolling) {
+                    state.isScrolling = true;
+                    syncScroll(preview, editor);
+                    setTimeout(() => state.isScrolling = false, 50);
+                }
+            });
             editor.addEventListener('keyup', updateCursor);
             document.addEventListener('keydown', handleShortcuts);
             preview.addEventListener('click', handlePreviewClick);
@@ -1791,12 +1830,38 @@ theme: ${state.theme}
 
         function scrollToLine(lineNum, closeOutlineOnMobile = true) {
             const lines = editor.value.split('\n');
+
+            // 1. Check parent date group and expand if needed
+            for (let i = lineNum - 1; i >= 0; i--) {
+                const match = lines[i].match(/^##\s+(\d{2}\.\d{2}\.\d{2,4}|\d{4}-\d{2}-\d{2})\s*$/);
+                if (match) {
+                    const date = match[1];
+                    if (state.expandedDates[date] === false) {
+                        state.expandedDates[date] = true;
+                        saveExpandedState();
+                        updateOutline();
+                        // showToast(`Grup açıldı: ${date}`, 'info');
+                    }
+                    break;
+                }
+            }
+
             let charIdx = 0;
             for (let i = 0; i < lineNum - 1; i++) charIdx += lines[i].length + 1;
+
             editor.focus();
             editor.setSelectionRange(charIdx, charIdx);
+
             const lineHeight = 24; // approximate
             editor.scrollTop = (lineNum - 5) * lineHeight;
+
+            // Handle Focus Mode scrolling (since editor might be hidden)
+            if (state.focusMode) {
+                const percentage = lineNum / lines.length;
+                const p = $('preview'); // Use local var to avoid closure issues if any
+                p.scrollTop = percentage * (p.scrollHeight - p.clientHeight);
+            }
+
             if (closeOutlineOnMobile && window.innerWidth <= 768) toggleOutline();
             updateCursor();
         }
@@ -2145,6 +2210,38 @@ theme: ${state.theme}
             } else if (item.action) {
                 item.action();
             }
+        }
+
+        // ========== New Features ==========
+        function togglePane(paneId) {
+            const pane = paneId === 'editor' ? $('editorPane') : $('previewPane');
+            const otherPane = paneId === 'editor' ? $('previewPane') : $('editorPane');
+
+            if (pane.style.display === 'none') {
+                pane.style.display = 'flex';
+                // If both are open, ensure they split space
+                if (otherPane.style.display !== 'none') {
+                    // Standard flex behavior handles it
+                }
+            } else {
+                // Don't close if it's the last open pane
+                if (otherPane.style.display === 'none') {
+                    showToast('En az bir panel açık kalmalı', 'info');
+                    return;
+                }
+                pane.style.display = 'none';
+            }
+        }
+
+        function addHighlight() {
+            wrap('==', '==');
+        }
+
+        function syncScroll(source, target) {
+            // Calculate percentage
+            const percentage = source.scrollTop / (source.scrollHeight - source.clientHeight);
+            // Apply to target
+            target.scrollTop = percentage * (target.scrollHeight - target.clientHeight);
         }
 
         init();
